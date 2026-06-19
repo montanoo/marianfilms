@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// Class strings kept as complete literals so Tailwind doesn't purge them.
+const VARIANTS = {
+    below: {
+        container: 'grid grid-cols-3 px-5 sm:px-0 gap-x-2 sm:gap-x-8 md:gap-x-12 xl:gap-x-18 gap-y-2 sm:gap-y-3',
+        image: 'image-gallery w-full h-auto object-cover',
+    },
+    aside: {
+        container: 'grid grid-cols-2 gap-2.5',
+        image: 'image-gallery w-full h-[225px] object-cover',
+    },
+} as const;
+
+interface Props {
+    images: ImageMetadata[];
+    title: string;
+    variant?: keyof typeof VARIANTS;
+}
+
+const { images, title, variant = 'aside' } = Astro.props;
+const styles = VARIANTS[variant];
+---
+
+<div class={styles.container}>
+    {images.map((image, i) => (
+        <Image src={image} alt={`${title} — still ${i + 1}`} class={styles.image} />
+    ))}
+    <slot />
+</div>
+
+<script>
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray<HTMLElement>('.image-gallery').forEach((image) => {
+        gsap.from(image, {
+            opacity: 0.05,
+            duration: 3,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: image,
+                start: 'top 85%',
+                once: true,
+            },
+        });
+    });
+</script>

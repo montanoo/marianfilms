@@ -1,0 +1,57 @@
+---
+// Static lookups so Tailwind can see every class as a complete literal.
+// (Interpolating `text-${alignment}` gets purged from production builds.)
+const ALIGN = {
+    left: 'text-left',
+    center: 'text-center',
+    right: 'text-right',
+} as const;
+
+interface Item {
+    term: string;
+    description?: string;
+}
+
+interface Props {
+    title: string;
+    items: Item[];
+    alignment?: keyof typeof ALIGN;
+    /** Bold the section heading. */
+    boldTitle?: boolean;
+    /** Bold each term (`<dt>`). */
+    boldTerms?: boolean;
+    /** Constrain + center the whole block (used inside the image grid). */
+    constrain?: boolean;
+    /** Shown when an item has no description. */
+    fallback?: string;
+}
+
+const {
+    title,
+    items,
+    alignment = 'left',
+    boldTitle = true,
+    boldTerms = true,
+    constrain = false,
+    fallback = '',
+} = Astro.props;
+
+const align = ALIGN[alignment];
+const underline = alignment === 'left';
+---
+
+{items.length > 0 && (
+    <div class:list={[constrain && 'max-w-80 mx-auto']}>
+        <h2 class:list={['text-[24px] mt-5', align, boldTitle && 'font-bold', underline && 'underline']}>
+            {title}
+        </h2>
+        <dl>
+            {items.map(({ term, description }) => (
+                <>
+                    <dt class:list={['text-[25px] leading-8', align, boldTerms ? 'font-bold' : 'font-normal']}>{term}</dt>
+                    <dd class:list={['text-white/80 font-extralight text-[25px] leading-8', align]}>{description || fallback}</dd>
+                </>
+            ))}
+        </dl>
+    </div>
+)}

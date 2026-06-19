@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Nav from '../components/Nav.astro';
+import WorkGrid from '../components/WorkGrid.astro';
+---
+
+<Base title="Home">
+    <Hero />
+    <Nav active="video" />
+    <main class="px-5 md:px-10 xl:max-w-[1680px] mx-auto pb-20 xl:pb-32">
+        <WorkGrid />
+    </main>
+</Base>

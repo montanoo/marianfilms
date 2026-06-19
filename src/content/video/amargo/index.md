@@ -1,0 +1,24 @@
+---
+title: "Amargo"
+cardTitle: "Amargo"
+label: "SHORT FILM"
+description: "A simple date turns into a sinister cycle, causing a woman to lose her sanity and choose between her freedom or submission."
+thumbnail: ./thumbnail.jpg
+hero: ./hero.jpg
+span: 2
+order: 7
+videoUrl: https://vimeo.com/123456789
+gallery:
+  - ./gallery/still-1.jpg
+  - ./gallery/still-2.jpg
+  - ./gallery/still-3.jpg
+  - ./gallery/still-4.jpg
+  - ./gallery/still-5.jpg
+  - ./gallery/still-6.png
+  - ./gallery/still-7.jpg
+
+credits:
+  - { role: "Written and directed by", name: "Marian Cabezas" }
+  - { role: "Starring", name: "Grisel Duarte, Sergio Rodríguez" }
+  - { role: "Edited by", name: "Marian Cabezas" }
+---

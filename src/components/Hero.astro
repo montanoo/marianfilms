@@ -1,0 +1,46 @@
+---
+import CameraText from '../assets/camera-with-text.svg';
+import Arrow from '../assets/arrow.svg';
+---
+
+<section id="hero" class="relative h-screen bg-white text-black overflow-hidden">
+    <div id="hero-logo" class="absolute inset-0 flex items-center justify-center will-change-transform">
+        <CameraText class="w-44 h-auto xl:w-72" />
+    </div>
+
+    <Arrow class="hero-arrow absolute bottom-28 left-8 w-6 xl:w-9 xl:bottom-32 xl:left-16 text-black" />
+    <Arrow class="hero-arrow absolute bottom-28 right-8 w-6 xl:w-9 xl:bottom-32 xl:right-16 text-black" />
+
+    <!-- blends the white hero into the black page below -->
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-b from-transparent to-black"></div>
+</section>
+
+<script>
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    gsap.registerPlugin(ScrollTrigger);
+
+    const fade = {
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true as const,
+    };
+
+    // Logo rises toward the nav and dissolves as you scroll past the hero.
+    gsap.to('#hero-logo', {
+        scrollTrigger: fade,
+        y: -140,
+        scale: 0.45,
+        opacity: 0,
+        ease: 'none',
+    });
+
+    // Down arrows fade out as the scroll cue is "consumed".
+    gsap.to('.hero-arrow', {
+        scrollTrigger: fade,
+        opacity: 0,
+        y: 30,
+        ease: 'none',
+    });
+</script>

@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Information from '../../components/Information.astro';
+import Gallery from '../../components/Gallery.astro';
+import PageNav from '../../components/PageNav.astro';
+import Header from '../../components/Header.astro';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+    const entries = await getCollection('video');
+    return entries.map((entry) => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { title, label, thumbnail, hero, description, gallery, awardsInGrid, layout, pageTitle } = entry.data;
+
+const creditItems = entry.data.credits.map((c) => ({ term: c.role, description: c.name }));
+const awardItems = entry.data.awards.map((a) => ({ term: a.name, description: a.awardTitle }));
+---
+<Base title={pageTitle || title}>
+    <main class="px-5 md:px-10 xl:max-w-[1680px] mx-auto py-5 xl:py-15">
+        <Header text="VIDEO" />
+        <section class="px-0 md:px-10 xl:px-35">
+            <p class="mb-3 md:mb-4">{label}</p>
+            <Image src={hero ?? thumbnail} alt={title} class="w-full h-auto object-cover mb-8 md:mb-12 xl:mb-17" />
+
+            {layout === 'credits-below' ? (
+                <>
+                    <Gallery images={gallery} title={title} variant="below" />
+                    <div class="mt-12 max-w-125 mx-auto text-center">
+                        <h2 class="font-bold text-[24px]">{title}</h2>
+                        <Information title="CREDITS" items={creditItems} alignment="center" fallback="Unknown" />
+                    </div>
+                </>
+            ) : (
+                <div class="grid grid-cols-1 gap-y-10 xl:grid-cols-[820fr_525fr] xl:gap-x-6.25 xl:gap-y-0">
+                    <Gallery images={gallery} title={title} variant="aside">
+                        {awardsInGrid && (
+                            <Information title="AWARDS" items={awardItems} alignment="left" boldTitle={false} boldTerms={false} constrain />
+                        )}
+                    </Gallery>
+                    <div class="flex max-w-125 flex-col gap-4">
+                        <h2 class="font-bold text-[24px]">{title}</h2>
+                        {description && (
+                            <p class="text-white/80 font-extralight text-[26px] leading-8">{description}</p>
+                        )}
+                        <div>
+                            <Information title="CREDITS" items={creditItems} alignment="left" fallback="Unknown" />
+                            {!awardsInGrid &&
+                                <Information title="AWARDS" items={awardItems} alignment="left" boldTitle={false} />
+                            }
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <PageNav />
+        </section>
+    </main>
+</Base>

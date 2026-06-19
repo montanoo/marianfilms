@@ -1,0 +1,41 @@
+---
+import LogoMark from '../assets/logo.svg';
+
+interface Props {
+    /** Slug of the active section, e.g. "video". */
+    active?: 'video' | 'photo' | 'design' | 'about';
+}
+
+const { active = 'video' } = Astro.props;
+
+const left = [
+    { label: 'VIDEO', href: '/#work', key: 'video' },
+    { label: 'PHOTO', href: '/photo', key: 'photo' },
+];
+const right = [
+    { label: 'DESIGN', href: '/design', key: 'design' },
+    { label: 'ABOUT ME', href: '/about', key: 'about' },
+];
+
+const linkClass = (key: string) =>
+    [
+        'font-bold tracking-wide hover:opacity-70 transition-opacity',
+        active === key ? 'underline underline-offset-[6px]' : '',
+    ].join(' ');
+---
+
+<nav class="sticky top-0 z-50 bg-black">
+    <div class="px-5 md:px-10 xl:max-w-[1680px] mx-auto py-6 xl:py-8 grid grid-cols-[1fr_auto_1fr] items-center">
+        <div class="flex items-center gap-8 md:gap-14 xl:gap-20">
+            {left.map((l) => <a href={l.href} class={linkClass(l.key)}>{l.label}</a>)}
+        </div>
+
+        <a href="/" aria-label="Marian Cabezas — home" class="justify-self-center">
+            <LogoMark class="h-10 w-auto xl:h-14" />
+        </a>
+
+        <div class="flex items-center justify-end gap-8 md:gap-14 xl:gap-20">
+            {right.map((l) => <a href={l.href} class={linkClass(l.key)}>{l.label}</a>)}
+        </div>
+    </div>
+</nav>

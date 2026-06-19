@@ -1,0 +1,20 @@
+---
+interface Props {
+    moreHref?: string;
+    moreLabel?: string;
+}
+
+const { moreHref = '/videos', moreLabel = 'MORE VIDEOS' } = Astro.props;
+
+const links = [
+    { href: moreHref, label: moreLabel },
+    { href: '#top', label: 'BACK TO TOP' },
+    { href: '/', label: 'BACK TO HOME' },
+];
+---
+
+<nav class="grid grid-cols-3 mt-10">
+    {links.map(({ href, label }) => (
+        <a href={href} class="font-bold text-center">{label}</a>
+    ))}
+</nav>
