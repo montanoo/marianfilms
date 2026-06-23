@@ -3,11 +3,11 @@ title: "Niño de Oro - Sander"
 cardTitle: "Niño de Oro"
 pageTitle: "Niño de Oro - Sander"
 label: "MUSIC VIDEO"
+videoUrl: "https://www.youtube.com/watch?v=Eme3yupi8UI&list=PL9HkiGCmXMEsXZrEM9JzR9e0Rl_H2aCED&index=6"
 thumbnail: ./thumbnail.jpg
 hero: ./hero.jpg
 span: 2
 order: 3
-videoUrl: "https://test.com"
 layout: "credits-aside"
 gallery:
   - ./gallery/still-1.jpg

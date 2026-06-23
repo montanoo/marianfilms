@@ -3,11 +3,11 @@ title: "Dakzze - Esta Bien Estar Mal ft. Gabriela Triste"
 cardTitle: "Esta Bien Estar Mal"
 pageTitle: "Esta bien estar mal"
 label: "MUSIC VIDEO"
+videoUrl: "https://www.youtube.com/watch?v=RNDRYeGdfGc&list=PL9HkiGCmXMEsXZrEM9JzR9e0Rl_H2aCED&index=9"
 thumbnail: ./thumbnail.jpg
 hero: ./hero.jpg
 span: 2
 order: 5
-videoUrl: "https://test.com"
 layout: "credits-below"
 gallery:
   - ./gallery/still-1.jpg

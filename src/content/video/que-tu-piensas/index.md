@@ -3,11 +3,11 @@ title: "Que tu piensas"
 cardTitle: "Que Tu Piensas"
 pageTitle: "Que tu piensas"
 label: "MUSIC VIDEO"
+videoUrl: "https://www.youtube.com/watch?v=7gSR2hp_fWQ&list=PL9HkiGCmXMEsXZrEM9JzR9e0Rl_H2aCED&index=8"
 thumbnail: ./thumbnail.jpg
 hero: ./hero.jpg
 span: 2
 order: 8
-videoUrl: "https://test.com"
 layout: "credits-aside"
 gallery:
   - ./gallery/still-1.jpg

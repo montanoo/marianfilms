@@ -1,15 +1,47 @@
 ---
 import LogoMark from '../assets/logo.svg';
 import ArrowMark from '../assets/arrow.svg';
-interface Props { text?: string}
+interface Props { text?: string; logoColor?: string }
 
-const { text } = Astro.props;
+// No default → logo inherits the page text color (adaptive on white/black pages).
+// `logoColor` overrides it (named color or hex) via inline `color`, since the SVG
+// now uses currentColor. Inline style avoids dynamic Tailwind classes (purged).
+const { text, logoColor } = Astro.props;
 ---
 
 <header class="relative">
-    <ArrowMark class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-8xl:w-22 xl:h-20 text-white rotate-90"/>
+    <button
+        type="button"
+        id="back-btn"
+        aria-label="Back"
+        disabled
+        class="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-30 disabled:cursor-default"
+    >
+        <ArrowMark class="w-10 h-8 xl:w-22 xl:h-20 rotate-90" />
+    </button>
     <div class="flex flex-col justify-center items-center gap-2">
-        <LogoMark class="w-10 h-5 xl:w-25 xl:h-15" />
+        <LogoMark class="w-10 h-5 xl:w-25 xl:h-15" style={logoColor ? `color: ${logoColor}` : undefined} />
         {text && <span class="text-xs xl:text-base font-extralight xl:tracking-[1.1em] xl:mr-[-1.1em]">{text}</span>}
     </div>
 </header>
+
+<script>
+    // Enable the back arrow only when the previous page was within this site;
+    // otherwise it stays disabled (direct visit or arrival from an external link).
+    const btn = document.getElementById('back-btn');
+    if (btn) {
+        let internal = false;
+        try {
+            internal =
+                document.referrer !== '' &&
+                new URL(document.referrer).origin === window.location.origin;
+        } catch {
+            internal = false;
+        }
+
+        if (internal && window.history.length > 1) {
+            btn.removeAttribute('disabled');
+            btn.addEventListener('click', () => window.history.back());
+        }
+    }
+</script>

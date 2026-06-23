@@ -3,11 +3,11 @@ title: "CUANTOS - Sander, dakzze ft. monica sin tilde"
 cardTitle: "Cuantos"
 pageTitle: "CUANTOS"
 label: "MUSIC VIDEO"
+videoUrl: "https://www.youtube.com/watch?v=4GMMge5AMmw&list=PL9HkiGCmXMEsXZrEM9JzR9e0Rl_H2aCED&index=5"
 thumbnail: ./thumbnail.jpg
 hero: ./hero.jpg
 span: 2
 order: 1
-videoUrl: "https://test.com"
 layout: "credits-aside"
 gallery:
   - ./gallery/still-1.jpg

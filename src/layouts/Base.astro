@@ -1,6 +1,7 @@
 ---
-interface Props { title: string; }
-const { title } = Astro.props;
+interface Props { title: string; background?: 'black' | 'white'; }
+const { title, background = 'black' } = Astro.props;
+const bodyClass = background === 'white' ? 'bg-white text-black' : 'bg-black text-white';
 
 import '../styles/global.css';
 ---
@@ -13,7 +14,7 @@ import '../styles/global.css';
 		<link rel="icon" href="/favicon.ico" />
         <title>{title} | Marianfilms</title>
     </head>
-    <body class="bg-black text-white p-0 m-0" id="top">
+    <body class={`${bodyClass} p-0 m-0`} id="top">
         <slot />
     </body>
 </html>

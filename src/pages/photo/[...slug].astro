@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import PhotoGallery from '../../components/PhotoGallery.astro';
+import PageNav from '../../components/PageNav.astro';
+import Header from '../../components/Header.astro';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+    const entries = await getCollection('photo');
+    return entries.map((entry) => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { title, description, rows, grid, gridCols, gridTemplate, gridGap, columns, colGap, pairGap, rowGap, singleWidth, leadGap, sections, sectionGap, layout, background, pageTitle, logoColor } = entry.data;
+---
+<Base title={pageTitle || title} background={background}>
+    <main class="px-5 md:px-10 xl:max-w-[1680px] mx-auto py-5 xl:py-15">
+        <Header text="PHOTO" logoColor={logoColor} />
+        <section class="px-0 md:px-10 xl:px-35 mt-8 md:mt-12">
+            <PhotoGallery layout={layout} rows={rows} grid={grid} gridCols={gridCols} gridTemplate={gridTemplate} gridGap={gridGap} columns={columns} colGap={colGap} pairGap={pairGap} rowGap={rowGap} singleWidth={singleWidth} leadGap={leadGap} sections={sections} sectionGap={sectionGap} title={title} />
+
+            <div class="mt-10 md:mt-14 max-w-150">
+                <h2 class="font-bold text-[24px]">{title}</h2>
+                {description && (
+                    <p class="font-extralight text-lg leading-7 mt-2 opacity-70">{description}</p>
+                )}
+            </div>
+
+            <PageNav moreHref="/photo" moreLabel="MORE PHOTOS" />
+        </section>
+    </main>
+</Base>

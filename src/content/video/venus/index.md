@@ -3,11 +3,11 @@ title: "Venus - Gabriela Triste"
 cardTitle: "Venus"
 pageTitle: "Venus - Gabriela Triste"
 label: "MUSIC VIDEO"
+videoUrl: "https://www.youtube.com/watch?v=w-_yX7glszE&list=PL9HkiGCmXMEsXZrEM9JzR9e0Rl_H2aCED&index=10"
 thumbnail: ./thumbnail.jpg
 hero: ./hero.jpg
 span: 2
 order: 4
-videoUrl: "https://test.com"
 layout: "credits-aside"
 awardsInGrid: true
 gallery:

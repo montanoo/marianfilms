@@ -36,7 +36,107 @@ const video = defineCollection({
 
 const photo = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/photo" }),
-  schema: base,
+  schema: (ctx) =>
+    base(ctx).extend({
+      description: z.string().optional(),
+      layout: z.enum(["rows", "grid", "columns", "sections"]).default("rows"),
+      rows: z
+        .array(
+          z.array(
+            z.object({
+              src: ctx.image(),
+              span: z.number().positive().optional(), // relative width weight; else sized by aspect
+            }),
+          ),
+        )
+        .default([]),
+      gridCols: z.number().int().min(2).max(12).default(6),
+      gridTemplate: z.string().optional(),
+      gridGap: z.number().default(14),
+      grid: z
+        .array(
+          z.object({
+            src: ctx.image(),
+            col: z.string(), // CSS grid-column, e.g. "1 / 2" or "2 / 4"
+            row: z.string().optional(), // optional explicit CSS grid-row
+            ar: z.number().optional(), // crop aspect (w/h); else natural
+          }),
+        )
+        .default([]),
+      colGap: z.number().default(14),
+      pairGap: z.number().default(14),
+      rowGap: z.number().default(67),
+      singleWidth: z.number().default(72), // % width for single-image rows
+      leadGap: z.number().optional(), // extra gap (px) after the first row
+      logoColor: z.enum(["black", "white"]).default("black"),
+      columns: z
+        .array(
+          z.object({
+            width: z.number(),
+            align: z.enum(["start", "center", "end"]).default("start"),
+            rows: z
+              .array(
+                z.array(
+                  z.object({
+                    src: ctx.image(),
+                    w: z.number().optional(), // fraction of column width (single rows)
+                  }),
+                ),
+              )
+              .default([]),
+          }),
+        )
+        .default([]),
+      // Composable flow: an ordered list of blocks, each either a `row`
+      // (full-width single, or top-aligned weighted multi) or a `columns`
+      // masonry group. `ar` crops an image (object-cover) to that aspect.
+      sections: z
+        .array(
+          z.object({
+            row: z
+              .array(
+                z.object({
+                  src: ctx.image(),
+                  span: z.number().positive().optional(), // relative width weight; else by aspect
+                  ar: z.number().positive().optional(), // crop aspect (w/h); else natural
+                  w: z.number().optional(), // fixed width fraction (no grow)
+                }),
+              )
+              .optional(),
+            columns: z
+              .array(
+                z.object({
+                  width: z.number(),
+                  align: z.enum(["start", "center", "end"]).default("start"),
+                  rows: z
+                    .array(
+                      z.array(
+                        z.object({
+                          src: ctx.image(),
+                          w: z.number().optional(), // fraction of column width
+                          ar: z.number().positive().optional(), // crop aspect (w/h)
+                          fill: z.boolean().optional(), // grow to fill remaining column height
+                        }),
+                      ),
+                    )
+                    .default([]),
+                }),
+              )
+              .optional(),
+            width: z.number().optional(), // single-image row max-width (%)
+            gap: z.number().optional(), // horizontal gap within a multi-image row
+            justify: z
+              .enum(["start", "center", "end", "between", "around"])
+              .optional(), // horizontal distribution of a multi-image row
+            valign: z.enum(["start", "center", "end"]).optional(), // vertical alignment of a row
+            colGap: z.number().optional(), // masonry: gap between columns
+            pairGap: z.number().optional(), // masonry: gap inside a multi-image row
+            rowGap: z.number().optional(), // masonry: vertical gap between images
+          }),
+        )
+        .default([]),
+      sectionGap: z.number().default(28), // vertical gap between sections
+    }),
 });
 
 const design = defineCollection({

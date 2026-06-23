@@ -1,13 +1,13 @@
 ---
-title: "Niño de Oro - Sander"
+title: "Subibajas"
 cardTitle: "Subibajas"
-pageTitle: "Niño de Oro - Sander"
+pageTitle: "Subibajas"
 label: "MUSIC VIDEO"
+videoUrl: "https://www.youtube.com/watch?v=wYvFsJe0i-I&list=PL9HkiGCmXMEsXZrEM9JzR9e0Rl_H2aCED"
 thumbnail: ./thumbnail.jpg
 hero: ./hero.jpg
 span: 2
 order: 2
-videoUrl: "https://test.com"
 layout: "credits-aside"
 awardsInGrid: true
 gallery:
