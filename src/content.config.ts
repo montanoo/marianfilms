@@ -87,9 +87,6 @@ const photo = defineCollection({
           }),
         )
         .default([]),
-      // Composable flow: an ordered list of blocks, each either a `row`
-      // (full-width single, or top-aligned weighted multi) or a `columns`
-      // masonry group. `ar` crops an image (object-cover) to that aspect.
       sections: z
         .array(
           z.object({

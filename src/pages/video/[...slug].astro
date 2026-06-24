@@ -21,7 +21,6 @@ const { title, label, thumbnail, hero, description, gallery, awardsInGrid, layou
 const creditItems = entry.data.credits.map((c) => ({ term: c.role, description: c.name }));
 const awardItems = entry.data.awards.map((a) => ({ term: a.name, description: a.awardTitle }));
 
-// Pull the 11-char video id out of any YouTube URL (watch?v=, youtu.be/, embed/).
 function youTubeId(url?: string): string | null {
     if (!url) return null;
     try {

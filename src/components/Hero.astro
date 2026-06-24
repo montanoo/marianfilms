@@ -30,11 +30,8 @@ import Arrow from '../assets/arrow.svg';
         gsap.set([logo, arrows], { opacity: 0 });
 
         gsap.timeline()
-            // 1. slow reveal of the centered logo
             .to(logo, { opacity: 1, duration: 4, ease: 'power2.out' })
-            // 2. then fade the arrows in (only after the logo)
             .to(arrows, { opacity: 1, duration: 2, ease: 'power2.out' }, '>')
-            // 3. once visible: start the idle bounce + wire up the scroll fade-out
             .call(() => {
                 gsap.to(arrows, {
                     y: 9,
@@ -51,9 +48,7 @@ import Arrow from '../assets/arrow.svg';
                     scrub: true,
                 };
 
-                // Logo rises toward the nav and dissolves on scroll.
                 gsap.to(logo, { scrollTrigger: scrub, y: -140, scale: 0.45, opacity: 0, ease: 'none' });
-                // Arrows just fade (bounce owns their vertical transform).
                 gsap.to(arrows, { scrollTrigger: scrub, opacity: 0, ease: 'none' });
             });
     }

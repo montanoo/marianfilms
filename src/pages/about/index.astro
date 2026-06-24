@@ -1,0 +1,125 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import { Image } from 'astro:assets';
+import CameraText from '../../assets/camera-with-text.svg';
+import portrait from './gallery/still-1.jpg';
+import ceremony from './gallery/still-2.jpg';
+import EmailIcon from '../../assets/email.svg';
+import InstagramIcon from '../../assets/instagram.svg';
+import YoutubeIcon from '../../assets/youtube.svg';
+import PhoneIcon from '../../assets/phone.svg';
+
+const bio = [
+    "I'm Marian Cabezas, a filmmaker, editor, designer, and communications professional passionate about visual storytelling. Through film, music videos, design, and digital media, I aim to portray abstract emotions through unique experiences, heavily centered on the female side and their day-to-day complex minds.",
+    "I graduated from Universidad Dr. José Matías Delgado with a bachelor's degree in communications. This is where I developed my skills in graphic design and strategic communication.",
+    "Over the years, I have worked in creative roles and collaborated with festivals and independent artists. My experience ranges from directing short films and music videos to leading creative teams, developing visual identities, managing social media campaigns, and producing multimedia content.",
+];
+
+const awards = [
+    { year: '2025', title: 'Honorable Mention, Mónica Herrera Audiovisual Festival', sub: 'Fiction Short Film: Subibajas' },
+    { year: '2025', title: 'Best Sound, Thirza Ruballo Award, 6th ESCINE Short Film Festival', sub: 'Fiction Short Film: Yamevú' },
+    { year: '2025', title: 'Best Makeup, Thirza Ruballo Award, 6th ESCINE Short Film Festival', sub: 'Fiction Short Film: Yamevú' },
+    { year: '2024', title: 'Best Music Video, Mónica Herrera Audiovisual Festival', sub: 'Music Video: CUÁNTOS' },
+    { year: '2024', title: 'Best Director, Torogoz Film Festival', sub: 'Universidad Dr. José Matías Delgado' },
+    { year: '2023', title: 'Best Sound, Thirza Ruballo Award, 4th ESCINE Short Film Festival', sub: 'Fiction Short Film: Amargo' },
+];
+
+const exhibitions = [
+    { year: '2023, 2025', title: 'ESCINE – Seleccion Oficial', sub: 'Exhibición en Cinépolis El Salvador.' },
+    { year: '2025', title: 'Muestra Internacional – Yucatán, México', sub: 'Exhibición de cine salvadoreño en Cineteca del Teatro Armando Manzanero.' },
+];
+---
+
+<Base title="About Me">
+    <Nav active="about" />
+
+    <main class="px-5 md:px-10 xl:max-w-[1680px] mx-auto pt-6 xl:pt-10 pb-16 xl:pb-28">
+        <!-- Intro: portrait + bio -->
+        <section class="grid gap-8 md:grid-cols-[1fr_2fr] xl:gap-10 md:items-end">
+            <Image src={portrait} alt="Marian Cabezas" class="w-full h-auto" />
+
+            <div class="max-w-4xl">
+                <h1 class="text-sm tracking-[0.4em] mb-6">ABOUT ME</h1>
+                <div class="space-y-4 font-extralight leading-7 text-[21px] xl:text-base opacity-90">
+                    {bio.map((p) => <p>{p}</p>)}
+                </div>
+                <a
+                    href="/cv.pdf"
+                    download
+                    class="mt-2 inline-block font-medium tracking-wide text-[#c63636] hover:opacity-70 underline"
+                >DOWNLOAD CV</a>
+            </div>
+        </section>
+
+        <!-- Awards + Exhibitions -->
+        <section class="mt-20 grid gap-10 md:grid-cols-[minmax(0,586px)_1fr] xl:mt-28 xl:gap-16 md:items-start">
+            <!-- Awards -->
+            <div>
+                <h2 class="text-[28px] font-bold underline underline-offset-4 mb-7">AWARDS</h2>
+                <ul class="space-y-6">
+                    {awards.map((a) => (
+                        <li>
+                            <p class="text-[25px] opacity-60">{a.year}</p>
+                            <p class="text-[25px] font-bold leading-snug">{a.title}</p>
+                            <p class="text-[25px] opacity-60">{a.sub}</p>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <!-- Award photo + Exhibitions -->
+            <div class="flex flex-col justify-between h-full">
+                <Image src={ceremony} alt="Marian Cabezas receiving an award" class="w-full h-auto" />
+                <div>
+                <h2 class="text-[28px] font-bold underline underline-offset-4 mt-10 mb-7">EXHIBITIONS</h2>
+                    <ul class="space-y-6">
+                        {exhibitions.map((e) => (
+                            <li class="underline decoration-1 underline-offset-4">
+                                <p class="text-sm">{e.year}</p>
+                                <p class="text-[25px] font-bold leading-snug">{e.title}</p>
+                                <p class="text-[25px]">{e.sub}</p>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white text-black">
+        <div class="px-5 md:px-10 xl:max-w-[1680px] mx-auto py-16 xl:py-24">
+            <div class="grid gap-12 md:grid-cols-2 md:items-center">
+                <CameraText class="h-56 w-auto xl:h-64 md:justify-self-center" />
+
+                <div>
+                    <h2 class="text-sm tracking-[0.4em] mb-8">CONTACT</h2>
+                    <ul class="space-y-5 text-lg">
+                        <li class="flex items-center gap-4">
+                            <EmailIcon class="h-7 w-auto" />
+                            <a href="mailto:marianromero234@gmail.com" class="hover:opacity-70">marianromero234@gmail.com</a>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <a href="https://instagram.com/marianfilms" target="_blank" rel="noopener" aria-label="Instagram" class="hover:opacity-70">
+                                <InstagramIcon class="h-7 w-auto" />
+                            </a>
+                            <a href="https://youtube.com/@marianfilms" target="_blank" rel="noopener" aria-label="YouTube" class="hover:opacity-70">
+                                <YoutubeIcon class="h-7 w-auto" />
+                            </a>
+                            <span>marianfilms</span>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <PhoneIcon class="h-7 w-auto" />
+                            <a href="tel:+50374620617" class="hover:opacity-70">+503 7462-0617</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex justify-end mt-16 xl:mt-24">
+                <a href="/" class="font-bold tracking-wide hover:opacity-70">BACK TO HOME</a>
+            </div>
+        </div>
+    </footer>
+</Base>

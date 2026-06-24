@@ -59,7 +59,7 @@ interface Section {
 
 interface Props {
     title: string;
-    layout?: 'rows' | 'grid' | 'columns';
+    layout?: 'rows' | 'grid' | 'columns' | 'sections';
     rows?: RowItem[][];
     grid?: GridItem[];
     gridCols?: number;
@@ -98,9 +98,6 @@ const FLOW = { start: 'flex-start', center: 'center', end: 'flex-end', between: 
 
 const aspect = (img: ImageMetadata) => img.width / img.height;
 
-// Bento grid: explicit column widths (reference px) → fr units. Each cell's
-// height is derived from the image aspect (or a crop `ar`) and quantised into
-// ROW_UNIT-high auto rows so a dense grid can stagger them.
 const ROW_UNIT = 14;
 const cols = gridTemplate
     ? gridTemplate.split(/\s+/).map(Number).filter((v) => !Number.isNaN(v))
@@ -132,17 +129,12 @@ let n = 0;
 ---
 
 {layout === 'sections' ? (
-    // Composable flow: each section is a row (single or weighted multi) or a
-    // masonry columns group. `ar` crops via object-cover (aspect-ratio on the
-    // <img> itself); otherwise the image keeps its natural height.
     <div class="flex flex-col" style={`gap:${sectionGap}px`}>
         {sections.map((section) => {
             if (section.columns) {
                 const cg = section.colGap ?? colGap;
                 const pg = section.pairGap ?? pairGap;
                 const rg = section.rowGap ?? rowGap;
-                // items-stretch so columns share the tallest column's height,
-                // letting a `fill` image grow to keep both columns level.
                 return (
                     <div class="flex items-stretch" style={`gap:${cg}px`}>
                         {section.columns.map((column) => (
@@ -213,8 +205,6 @@ let n = 0;
                 <div class="flex" style={`gap:${section.gap ?? 32}px; justify-content:${FLOW[section.justify ?? 'start']}; align-items:${JUSTIFY[section.valign ?? 'start']}`}>
                     {row.map((item) => {
                         n++;
-                        // `w` → fixed width fraction (no grow), so the row can
-                        // distribute leftover space (e.g. justify: between).
                         const sizing = item.w != null
                             ? `width:${item.w * 100}%; flex:none`
                             : `flex-grow:${item.span ?? item.ar ?? aspect(item.src)}; flex-basis:0`;
@@ -250,8 +240,6 @@ let n = 0;
         })}
     </div>
 ) : layout === 'columns' ? (
-    // Independent vertical columns that stagger (masonry). Each column is a
-    // flex stack; multi-image rows justify, single rows fill (or a fraction).
     <div class="flex items-start" style={`gap:${colGap}px`}>
         {columns.map((column) => (
             <div class="flex flex-col" style={`flex:${column.width} 1 0; gap:${rowGap}px`}>
@@ -285,13 +273,9 @@ let n = 0;
 ) : (
     <div class="flex flex-col">
         {rows.map((row, i) => {
-            // Vertical spacing between rows: rowGap between rows, leadGap (if set)
-            // after the first row, nothing after the last.
             const mb = i === rows.length - 1 ? 0 : i === 0 && leadGap != null ? leadGap : rowGap;
             const mbStyle = `margin-bottom:${mb}px`;
 
-            // Single image: centered, capped width — one image owning the whole
-            // row, not full-bleed and not a 1/3 column.
             if (row.length === 1) {
                 n++;
                 return (
@@ -301,9 +285,6 @@ let n = 0;
                 );
             }
 
-            // Row: widths are proportional to each item's `span` weight (or its
-            // aspect ratio when no span). Items keep their natural height and
-            // top-align, so unequal-height stills share a top edge.
             return (
                 <div class="flex gap-4 md:gap-8" style={mbStyle}>
                     {row.map((item) => {

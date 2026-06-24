@@ -3,9 +3,6 @@ import LogoMark from '../assets/logo.svg';
 import ArrowMark from '../assets/arrow.svg';
 interface Props { text?: string; logoColor?: string }
 
-// No default → logo inherits the page text color (adaptive on white/black pages).
-// `logoColor` overrides it (named color or hex) via inline `color`, since the SVG
-// now uses currentColor. Inline style avoids dynamic Tailwind classes (purged).
 const { text, logoColor } = Astro.props;
 ---
 
@@ -26,8 +23,6 @@ const { text, logoColor } = Astro.props;
 </header>
 
 <script>
-    // Enable the back arrow only when the previous page was within this site;
-    // otherwise it stays disabled (direct visit or arrival from an external link).
     const btn = document.getElementById('back-btn');
     if (btn) {
         let internal = false;
