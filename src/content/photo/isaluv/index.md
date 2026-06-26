@@ -7,6 +7,7 @@ order: 5
 background: white
 logoColor: black
 layout: sections
+masonryLeftBias: 1.4
 sectionGap: 32 # vertical gap between bands
 sections:
   # 1 — 3-up row (justified, equal height)

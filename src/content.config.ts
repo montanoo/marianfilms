@@ -128,6 +128,7 @@ const galleryFields = (ctx: SchemaContext) => ({
     )
     .default([]),
   sectionGap: z.number().default(28), // vertical gap between sections
+  masonryLeftBias: z.number().default(1), // mobile masonry: left-column flex-grow (1 = equal, >1 = bigger left)
 });
 
 const video = defineCollection({

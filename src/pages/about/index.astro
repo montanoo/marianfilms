@@ -85,9 +85,9 @@ const exhibitions: Entry[] = [
         <section class="grid gap-8 md:grid-cols-[1fr_2fr] xl:gap-10 md:items-end">
             <Image src={portrait} alt="Marian Cabezas" class="w-full h-auto" />
 
-            <div class="max-w-4xl">
+            <div class="">
                 <h1 class="text-sm tracking-[0.4em] mb-6"><T value={ui.aboutMe} /></h1>
-                <div class="space-y-4 font-extralight leading-7 text-[21px] xl:text-base opacity-90">
+                <div class="space-y-4 text-justify leading-7 text-lg md:text-[21px] xl:text-base opacity-90">
                     {bio.map((p) => <p><T value={p} /></p>)}
                 </div>
                 <div class="mt-2">
@@ -102,13 +102,13 @@ const exhibitions: Entry[] = [
         <section class="mt-20 grid gap-10 md:grid-cols-[minmax(0,586px)_1fr] xl:mt-28 xl:gap-16 md:items-start">
             <!-- Awards -->
             <div>
-                <h2 class="text-[28px] font-bold underline underline-offset-4 mb-7"><T value={ui.recognitions} /></h2>
+                <h2 class="text-xl md:text-[28px] font-bold underline underline-offset-4 mb-7"><T value={ui.recognitions} /></h2>
                 <ul class="space-y-6">
                     {awards.map((a) => (
                         <li>
-                            <p class="text-[25px] opacity-60">{a.year}</p>
-                            <p class="text-[25px] font-bold leading-snug"><T value={a.title} /></p>
-                            <p class="text-[25px] opacity-60"><T value={a.sub} /></p>
+                            <p class="text-lg md:text-[25px] opacity-60">{a.year}</p>
+                            <p class="text-lg md:text-[25px] font-bold leading-snug"><T value={a.title} /></p>
+                            <p class="text-lg md:text-[25px] opacity-60"><T value={a.sub} /></p>
                         </li>
                     ))}
                 </ul>
@@ -118,13 +118,13 @@ const exhibitions: Entry[] = [
             <div class="flex flex-col justify-between h-full">
                 <Image src={ceremony} alt="Marian Cabezas receiving an award" class="w-full h-auto" />
                 <div>
-                <h2 class="text-[28px] font-bold underline underline-offset-4 mt-10 mb-7"><T value={ui.exhibitions} /></h2>
+                <h2 class="text-xl md:text-[28px] font-bold underline underline-offset-4 mt-10 mb-7"><T value={ui.exhibitions} /></h2>
                     <ul class="space-y-6">
                         {exhibitions.map((e) => (
                             <li class="underline decoration-1 underline-offset-4">
                                 <p class="text-sm">{e.year}</p>
-                                <p class="text-[25px] font-bold leading-snug"><T value={e.title} /></p>
-                                <p class="text-[25px]"><T value={e.sub} /></p>
+                                <p class="text-lg md:text-[25px] font-bold leading-snug"><T value={e.title} /></p>
+                                <p class="text-lg md:text-[25px]"><T value={e.sub} /></p>
                             </li>
                         ))}
                     </ul>
@@ -137,7 +137,7 @@ const exhibitions: Entry[] = [
     <footer class="bg-white text-black">
         <div class="px-5 md:px-10 xl:max-w-[1680px] mx-auto py-16 xl:py-24">
             <div class="grid gap-12 md:grid-cols-2 md:items-center">
-                <CameraText class="h-56 w-auto xl:h-64 md:justify-self-center" />
+                <CameraText class="h-56 xl:h-64 md:justify-self-center w-full text-center md:w-auto" />
 
                 <div>
                     <h2 class="text-sm tracking-[0.4em] mb-8"><T value={ui.contact} /></h2>

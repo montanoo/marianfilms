@@ -14,20 +14,21 @@ interface Props {
 
 const { text, logoColor, active } = Astro.props;
 const colorStyle = logoColor ? `color: ${logoColor}` : undefined;
+// Back arrow goes to the section listing this work belongs to (e.g. /photo),
+// not browser history — predictable even on a direct visit / shared link.
+const backHref = active ? `/${active}` : '/';
 ---
 
 <header class="relative" style={colorStyle}>
     <!-- Desktop (lg+): back arrow · centered logo + label · toggle -->
     <div class="relative hidden lg:block">
-        <button
-            type="button"
-            id="back-btn"
+        <a
+            href={backHref}
             aria-label="Back"
-            disabled
-            class="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-30 disabled:cursor-default"
+            class="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer hover:opacity-70 transition-opacity"
         >
             <ArrowMark class="w-10 h-8 xl:w-22 xl:h-20 rotate-90" />
-        </button>
+        </a>
         <div class="absolute right-0 top-1/2 -translate-y-1/2">
             <LangToggle />
         </div>
@@ -45,22 +46,3 @@ const colorStyle = logoColor ? `color: ${logoColor}` : undefined;
         <NavDrawer active={active} />
     </div>
 </header>
-
-<script>
-    const btn = document.getElementById('back-btn');
-    if (btn) {
-        let internal = false;
-        try {
-            internal =
-                document.referrer !== '' &&
-                new URL(document.referrer).origin === window.location.origin;
-        } catch {
-            internal = false;
-        }
-
-        if (internal && window.history.length > 1) {
-            btn.removeAttribute('disabled');
-            btn.addEventListener('click', () => window.history.back());
-        }
-    }
-</script>

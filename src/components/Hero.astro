@@ -12,7 +12,7 @@ import Arrow from '../assets/arrow.svg';
         <!-- Optical centering: the mark reads left-heavy when geometrically
              centered, so nudge it slightly right. Offset lives on the SVG (not
              #hero-logo, whose transform GSAP drives) to avoid clobbering it. -->
-        <CameraText class="w-44 h-auto xl:w-72 translate-x-[2.5%]" />
+        <CameraText class="w-44 h-auto xl:w-72 translate-x-[5.5%]" />
     </div>
 
     <Arrow class="hero-arrow absolute bottom-36 left-8 w-6 xl:bottom-44 xl:left-16 xl:w-9 text-black" />
@@ -34,7 +34,7 @@ import Arrow from '../assets/arrow.svg';
 
         gsap.timeline()
             .to(logo, { opacity: 1, duration: 4, ease: 'power2.out' })
-            .to(arrows, { opacity: 1, duration: 2, ease: 'power2.out' }, '>')
+            .to(arrows, { opacity: 1, duration: 0.8, ease: 'power2.out' }, '<0.5')
             .call(() => {
                 gsap.to(arrows, {
                     y: 9,
@@ -53,6 +53,6 @@ import Arrow from '../assets/arrow.svg';
 
                 gsap.to(logo, { scrollTrigger: scrub, y: -140, scale: 0.45, opacity: 0, ease: 'none' });
                 gsap.to(arrows, { scrollTrigger: scrub, opacity: 0, ease: 'none' });
-            });
+            }, undefined, '>');
     }
 </script>

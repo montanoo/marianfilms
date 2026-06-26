@@ -7,7 +7,7 @@ label: { es: "Marca y Redes", en: "Brand & Social" }
 thumbnail: ./thumbnail.jpg
 order: 1
 background: white
-singleWidth: 60
+singleWidth: 100
 description:
   es: "BrandLook para su segunda edición, que incluyó diseños para todas sus cuentas de redes sociales, diplomas, elementos del sitio web, etc."
   en: "BrandLook for their second edition, which included designs for all of their social media accounts, diplomas, website assets, etc."

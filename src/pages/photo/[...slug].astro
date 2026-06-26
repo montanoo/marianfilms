@@ -16,17 +16,17 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { title, description, rows, grid, gridCols, gridTemplate, gridGap, columns, colGap, pairGap, rowGap, singleWidth, leadGap, sections, sectionGap, layout, background, pageTitle, logoColor } = entry.data;
+const { title, description, rows, grid, gridCols, gridTemplate, gridGap, columns, colGap, pairGap, rowGap, singleWidth, leadGap, sections, sectionGap, masonryLeftBias, layout, background, pageTitle, logoColor } = entry.data;
 const titleStr = pick(pageTitle ?? title);
 ---
 <Base title={titleStr} background={background}>
     <main class="px-5 md:px-10 xl:max-w-[1680px] mx-auto py-5 xl:py-15">
         <Header text={ui.header.photo} logoColor={logoColor} active="photo" />
         <section class="px-0 md:px-10 xl:px-35 mt-8 md:mt-12">
-            <PhotoGallery layout={layout} rows={rows} grid={grid} gridCols={gridCols} gridTemplate={gridTemplate} gridGap={gridGap} columns={columns} colGap={colGap} pairGap={pairGap} rowGap={rowGap} singleWidth={singleWidth} leadGap={leadGap} sections={sections} sectionGap={sectionGap} title={titleStr} />
+            <PhotoGallery layout={layout} rows={rows} grid={grid} gridCols={gridCols} gridTemplate={gridTemplate} gridGap={gridGap} columns={columns} colGap={colGap} pairGap={pairGap} rowGap={rowGap} singleWidth={singleWidth} leadGap={leadGap} sections={sections} sectionGap={sectionGap} title={titleStr} mobileMasonry masonryLeftBias={masonryLeftBias} />
 
-            <div class="mt-10 md:mt-14 max-w-150">
-                <h2 class="font-bold text-[24px]"><T value={title} /></h2>
+            <div class="mt-10 md:mt-14">
+                <h2 class="font-bold text-gl md:text-[24px]"><T value={title} /></h2>
                 {description && (
                     <p class="font-extralight text-lg leading-7 mt-2 opacity-70"><T value={description} /></p>
                 )}

@@ -88,6 +88,10 @@ interface Props {
     leadGap?: number;
     sections?: Section[];
     sectionGap?: number;
+    /** Mobile (<md): collapse the authored layout into a 2-column staggered masonry. */
+    mobileMasonry?: boolean;
+    /** Masonry left-column flex-grow (1 = equal columns; >1 = bigger left). */
+    masonryLeftBias?: number;
 }
 
 const {
@@ -109,6 +113,8 @@ const {
     leadGap,
     sections = [],
     sectionGap = 28,
+    mobileMasonry = false,
+    masonryLeftBias = 1,
 } = Astro.props;
 
 const JUSTIFY = { start: 'flex-start', center: 'center', end: 'flex-end' } as const;
@@ -144,8 +150,36 @@ function gridRow(item: GridItem): string {
 }
 
 let n = 0;
+
+const masonryImages: ImageMetadata[] = [];
+for (const row of rows) for (const it of row) masonryImages.push(it.src);
+for (const it of grid) masonryImages.push(it.src);
+for (const col of columns) for (const r of col.rows) for (const it of r) masonryImages.push(it.src);
+for (const sec of sections) {
+    if (sec.row) for (const it of sec.row) masonryImages.push(it.src);
+    if (sec.columns) for (const sc of sec.columns) for (const r of sc.rows) for (const it of r) masonryImages.push(it.src);
+}
+const leftParity = (masonryImages.length - 1) % 2;
+const leftCol = masonryImages.filter((_, i) => i % 2 === leftParity);
+const rightCol = masonryImages.filter((_, i) => i % 2 !== leftParity);
 ---
 
+{mobileMasonry && masonryImages.length > 0 && (
+    <div class="flex gap-2.5 md:hidden">
+        <div class="flex min-w-0 flex-col gap-2.5" style={`flex:${masonryLeftBias} 1 0`}>
+            {leftCol.map((img, i) => (
+                <Image src={img} alt={`${title} — L${i + 1}`} class="image-gallery block w-full h-auto" />
+            ))}
+        </div>
+        <div class="flex flex-1 min-w-0 flex-col gap-2.5">
+            {rightCol.map((img, i) => (
+                <Image src={img} alt={`${title} — R${i + 1}`} class="image-gallery block w-full h-auto" />
+            ))}
+        </div>
+    </div>
+)}
+
+<div class:list={[mobileMasonry && 'hidden md:block']}>
 {layout === 'blocks' ? (
     <div class="flex flex-col" style={`gap:${blockGap}px`}>
         {blocks.map((block) => (
@@ -153,7 +187,10 @@ let n = 0;
                 {block.heading && (
                     <h3 class="text-xl md:text-2xl font-bold mb-4 md:mb-6"><T value={block.heading} /></h3>
                 )}
-                <figure class="m-0 mx-auto w-full flex flex-col" style={`max-width:${singleWidth}%; gap:${block.rowGap ?? 14}px`}>
+                <figure
+  class="m-0 mx-auto flex w-full flex-col max-w-[var(--mobile-width)] md:max-w-[60%]"
+  style={`--mobile-width:${singleWidth}%; gap:${block.rowGap ?? 14}px;`}
+>
                     {block.rows.map((row) => (
                         <div class="flex" style={`gap:${block.gap ?? 0}px`}>
                             {row.map((img) => {
@@ -358,6 +395,7 @@ let n = 0;
         })}
     </div>
 )}
+</div>
 
 <!-- Reveal handled globally by Base.astro (.image-gallery). -->
 

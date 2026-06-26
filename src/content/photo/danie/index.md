@@ -6,7 +6,7 @@ description:
 cardTitle: "Danie"
 label: { es: "FOTOGRAFÍA", en: "PHOTOGRAPHY" }
 thumbnail: ./gallery/still-3.jpg
-order: 2
+order: 3
 background: black
 logoColor: white
 # Layout: 1 × 3 × 1 × 3 × 2(justified) × 3

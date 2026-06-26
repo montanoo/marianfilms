@@ -3,7 +3,7 @@ title: "Daniel Estrada"
 cardTitle: "Daniel Estrada"
 label: { es: "FOTOGRAFÍA", en: "PHOTOGRAPHY" }
 thumbnail: ./gallery/slide-6.jpg
-order: 3
+order: 2
 background: white
 logoColor: black
 description:
