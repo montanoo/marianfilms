@@ -45,16 +45,20 @@ const linkClass = (key: string) =>
 <div id="nav-menu" class="hidden fixed inset-0 z-50 overflow-hidden text-white">
     <div id="nav-backdrop" class="absolute inset-0 bg-black/60"></div>
     <aside class="nav-panel absolute top-0 right-0 flex h-full w-[82%] max-w-xs flex-col overflow-y-auto bg-black px-6 pt-6 pb-10">
-        <button id="nav-close" type="button" aria-label="Close menu" class="self-end cursor-pointer p-1">
-            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <line x1="5" y1="5" x2="19" y2="19" />
-                <line x1="19" y1="5" x2="5" y2="19" />
-            </svg>
-        </button>
+        <div class="flex items-center justify-between">
+            <div class="mt-10"><LangToggle /></div>
+            <button id="nav-close" type="button" aria-label="Close menu" class="self-end cursor-pointer p-1">
+                <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="5" y1="5" x2="19" y2="19" />
+                    <line x1="19" y1="5" x2="5" y2="19" />
+                </svg>
+            </button>
+        </div>
+
+
         <div class="mt-8 flex flex-col gap-7">
             {links.map((l) => <a href={l.href} class={linkClass(l.key)}><T value={l.label} /></a>)}
         </div>
-        <div class="mt-10"><LangToggle /></div>
     </aside>
 </div>
 

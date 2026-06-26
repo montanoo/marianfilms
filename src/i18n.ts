@@ -34,6 +34,10 @@ export const ui = {
   backToHome: { es: "VOLVER AL INICIO", en: "BACK TO HOME" },
   aboutMe: { es: "ACERCA DE MÍ", en: "ABOUT ME" },
   downloadCv: { es: "DESCARGAR CV", en: "DOWNLOAD CV" },
+  cvNote: {
+    es: "El CV se descarga en el idioma de la página.",
+    en: "The CV downloads in the page's language.",
+  },
   recognitions: { es: "RECONOCIMIENTOS", en: "AWARDS" },
   exhibitions: { es: "EXHIBICIONES", en: "EXHIBITIONS" },
   contact: { es: "CONTACTO", en: "CONTACT" },

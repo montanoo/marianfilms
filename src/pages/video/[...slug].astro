@@ -63,7 +63,7 @@ const titleStr = pick(pageTitle ?? title);
                 <>
                     <Gallery images={gallery} title={titleStr} variant="below" />
                     <div class="mt-12 max-w-125 mx-auto text-center">
-                        <h2 class="font-bold text-[24px]"><T value={title} /></h2>
+                        <h2 class="font-bold text-xl md:text-[24px]"><T value={title} /></h2>
                         <Information title={ui.credits} items={creditItems} alignment="center" fallback={ui.unknown} />
                     </div>
                 </>
@@ -75,9 +75,9 @@ const titleStr = pick(pageTitle ?? title);
                         )}
                     </Gallery>
                     <div class="flex max-w-125 flex-col gap-4">
-                        <h2 class="font-bold text-[24px]"><T value={title} /></h2>
+                        <h2 class="font-bold text-xl md:text-[24px]"><T value={title} /></h2>
                         {description && (
-                            <p class="text-white/80 font-extralight text-[26px] leading-8"><T value={description} /></p>
+                            <p class="text-white/80 font-extralight text-lg md:text-[26px] leading-7 md:leading-8"><T value={description} /></p>
                         )}
                         <div>
                             <Information title={ui.credits} items={creditItems} alignment="left" fallback={ui.unknown} />

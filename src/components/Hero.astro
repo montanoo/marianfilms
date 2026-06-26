@@ -9,7 +9,10 @@ import Arrow from '../assets/arrow.svg';
     style="background: linear-gradient(to bottom, #ffffff 0%, #ffffff 76%, #000000 100%);"
 >
     <div id="hero-logo" class="absolute inset-0 flex items-center justify-center will-change-transform">
-        <CameraText class="w-44 h-auto xl:w-72" />
+        <!-- Optical centering: the mark reads left-heavy when geometrically
+             centered, so nudge it slightly right. Offset lives on the SVG (not
+             #hero-logo, whose transform GSAP drives) to avoid clobbering it. -->
+        <CameraText class="w-44 h-auto xl:w-72 translate-x-[2.5%]" />
     </div>
 
     <Arrow class="hero-arrow absolute bottom-36 left-8 w-6 xl:bottom-44 xl:left-16 xl:w-9 text-black" />

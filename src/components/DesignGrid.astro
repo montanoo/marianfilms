@@ -22,22 +22,29 @@ interface Props {
 const { items, singleRow = false } = Astro.props;
 
 const wrapClass = singleRow
-    ? 'grid grid-cols-2 md:grid-cols-4 gap-2.5 md:gap-3'
+    ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 md:gap-3'
     : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-3';
-// Category grids crop to a tall portrait (9:16, matching social-media); the index
-// grid uses 3:4. Both crop with object-cover so cards stay uniform regardless of
-// the source image's orientation.
+// Category grids crop to a tall portrait (9:16, matching social-media) once they
+// sit in a multi-column grid; stacked full-width on mobile they use a gentler 4:5
+// so a single card isn't a whole screen tall. The index grid uses 3:4. All crop
+// with object-cover so cards stay uniform regardless of source orientation.
 const cardClass = singleRow
-    ? 'reveal group relative block aspect-[9/16] overflow-hidden'
+    ? 'reveal group relative block aspect-[4/5] sm:aspect-[9/16] overflow-hidden'
     : 'reveal group relative block aspect-[3/4] overflow-hidden';
-const imgClass = 'h-full w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03] group-hover:brightness-[0.35]';
+const imgClass = 'h-full w-full object-cover transition duration-300 ease-out group-active:scale-[0.98] can-hover:group-hover:scale-[1.03] can-hover:group-hover:brightness-[0.35]';
 ---
 
 <div class={wrapClass}>
     {items.map((item) => (
         <a href={item.href} class={cardClass}>
             <Image src={item.thumbnail} alt={pick(item.title)} class={imgClass} />
-            <div class="absolute inset-0 flex flex-col items-center justify-center gap-1.5 p-4 text-center opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
+            {/* Touch: persistent caption so the card reads as tappable + shows its title */}
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent px-4 pb-3 pt-12 can-hover:hidden">
+                <h3 class="font-light uppercase tracking-[0.2em] text-sm sm:text-base leading-tight text-white"><T value={item.cardTitle ?? item.title} /></h3>
+                <p class="text-[10px] uppercase tracking-[0.2em] text-white/70 mt-0.5"><T value={item.label} /></p>
+            </div>
+            {/* Hover devices: centered fade-in overlay */}
+            <div class="hidden can-hover:flex absolute inset-0 flex-col items-center justify-center gap-1.5 p-4 text-center opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
                 <h3 class="font-light uppercase tracking-[0.3em] pl-[0.3em] text-xl md:text-2xl leading-tight text-white"><T value={item.cardTitle ?? item.title} /></h3>
                 <p class="text-[10px] md:text-[11px] uppercase tracking-[0.3em] pl-[0.3em] text-white/70"><T value={item.label} /></p>
             </div>

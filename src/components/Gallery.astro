@@ -8,8 +8,11 @@ const VARIANTS = {
         image: 'image-gallery w-full h-auto object-cover',
     },
     aside: {
-        container: 'grid grid-cols-2 gap-2.5',
-        image: 'image-gallery w-full h-[225px] object-cover',
+        // Mobile: one per row, inset 10px (px-2.5) each side so the stacked
+        // stills sit visibly narrower than the full-width hero embed; natural
+        // height so each frame shows whole. sm+: back to the 2-up fixed grid.
+        container: 'grid grid-cols-1 sm:grid-cols-2 gap-2.5 px-2.5 sm:px-0',
+        image: 'image-gallery w-full h-auto sm:h-[225px] object-cover',
     },
 } as const;
 

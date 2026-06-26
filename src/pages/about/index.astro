@@ -90,11 +90,11 @@ const exhibitions: Entry[] = [
                 <div class="space-y-4 font-extralight leading-7 text-[21px] xl:text-base opacity-90">
                     {bio.map((p) => <p><T value={p} /></p>)}
                 </div>
-                <a
-                    href="/cv.pdf"
-                    download
-                    class="mt-2 inline-block font-medium tracking-wide text-[#c63636] hover:opacity-70 underline"
-                ><T value={ui.downloadCv} /></a>
+                <div class="mt-2">
+                    <a data-lang="es" href="/CV_MARIANCABEZAS_ES.pdf" download class="font-medium tracking-wide text-[#c63636] hover:opacity-70 underline">{ui.downloadCv.es}</a>
+                    <a data-lang="en" href="/CV_MARIANCABEZAS_ENG.pdf" download class="font-medium tracking-wide text-[#c63636] hover:opacity-70 underline">{ui.downloadCv.en}</a>
+                    <p class="mt-1 text-xs opacity-60"><T value={ui.cvNote} /></p>
+                </div>
             </div>
         </section>
 

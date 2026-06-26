@@ -43,14 +43,14 @@ const underline = alignment === 'left';
 
 {items.length > 0 && (
     <div class:list={[constrain && 'max-w-80 mx-auto']}>
-        <h2 class:list={['text-[24px] mt-5', align, boldTitle && 'font-bold', underline && 'underline']}>
+        <h2 class:list={['text-xl md:text-[24px] mt-5', align, boldTitle && 'font-bold', underline && 'underline']}>
             <T value={title} />
         </h2>
         <dl>
             {items.map(({ term, description }) => (
                 <>
-                    <dt class:list={['text-[25px] leading-8', align, boldTerms ? 'font-bold' : 'font-normal']}><T value={term} /></dt>
-                    <dd class:list={['text-white/80 font-extralight text-[25px] leading-8', align]}><T value={description || fallback} /></dd>
+                    <dt class:list={['text-lg leading-7 md:text-[25px] md:leading-8', align, boldTerms ? 'font-bold' : 'font-normal']}><T value={term} /></dt>
+                    <dd class:list={['text-white/80 font-extralight text-lg leading-7 md:text-[25px] md:leading-8', align]}><T value={description || fallback} /></dd>
                 </>
             ))}
         </dl>

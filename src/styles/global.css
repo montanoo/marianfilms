@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* `can-hover:` targets devices with a real hover pointer (desktop). Touch
+   devices (hover: none) fall through to the mobile-first defaults — used so
+   grid cards show a persistent caption + tap affordance instead of relying on
+   a hover-only reveal that fingers can never trigger. */
+@custom-variant can-hover (@media (hover: hover));
+
 @theme {
   --font-sans: Helvetica, "Helvetica Neue", Arial, sans-serif;
 }
