@@ -12,5 +12,5 @@ description:
   es: "CinemaScopio - Revista ficticia de cine"
   en: "CinemaScopio - Fictional Film Magazine"
 blocks:
-  - src: ./gallery/still-1.png
+  - src: ./gallery/still-1.jpg
 ---

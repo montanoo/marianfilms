@@ -12,5 +12,5 @@ description:
   es: "Este diseño se inspiró en el universo de Batman v Superman: El amanecer de la justicia, específicamente en la identidad gráfica de LexCorp dentro de la película. Todos los anuncios también fueron diseñados por mí."
   en: "This was designed inspired by the universe set in Batman v Superman: Dawn of Justice, specifically based on LexCorp's identity within the movie. All of the ads were also designed by me."
 blocks:
-  - src: ./gallery/still-1.png
+  - src: ./gallery/still-1.jpg
 ---
