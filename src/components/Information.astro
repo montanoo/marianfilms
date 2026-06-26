@@ -1,4 +1,7 @@
 ---
+import T from './T.astro';
+import type { Localized } from '../i18n';
+
 const ALIGN = {
     left: 'text-left',
     center: 'text-center',
@@ -6,12 +9,12 @@ const ALIGN = {
 } as const;
 
 interface Item {
-    term: string;
-    description?: string;
+    term: Localized;
+    description?: Localized;
 }
 
 interface Props {
-    title: string;
+    title: Localized;
     items: Item[];
     alignment?: keyof typeof ALIGN;
     /** Bold the section heading. */
@@ -21,7 +24,7 @@ interface Props {
     /** Constrain + center the whole block (used inside the image grid). */
     constrain?: boolean;
     /** Shown when an item has no description. */
-    fallback?: string;
+    fallback?: Localized;
 }
 
 const {
@@ -41,13 +44,13 @@ const underline = alignment === 'left';
 {items.length > 0 && (
     <div class:list={[constrain && 'max-w-80 mx-auto']}>
         <h2 class:list={['text-[24px] mt-5', align, boldTitle && 'font-bold', underline && 'underline']}>
-            {title}
+            <T value={title} />
         </h2>
         <dl>
             {items.map(({ term, description }) => (
                 <>
-                    <dt class:list={['text-[25px] leading-8', align, boldTerms ? 'font-bold' : 'font-normal']}>{term}</dt>
-                    <dd class:list={['text-white/80 font-extralight text-[25px] leading-8', align]}>{description || fallback}</dd>
+                    <dt class:list={['text-[25px] leading-8', align, boldTerms ? 'font-bold' : 'font-normal']}><T value={term} /></dt>
+                    <dd class:list={['text-white/80 font-extralight text-[25px] leading-8', align]}><T value={description || fallback} /></dd>
                 </>
             ))}
         </dl>

@@ -1,12 +1,14 @@
 ---
 title: "Trash - Album Photoshoot"
 cardTitle: "Trash"
-label: "PHOTOGRAPHY"
+label: { es: "FOTOGRAFÍA", en: "PHOTOGRAPHY" }
 thumbnail: ./gallery/still-8.jpg
 order: 1
 background: black
 logoColor: white
-description: "These are part of a bigger project. We were aiming to shoot the cover, which is him falling into the empty abyss. The entire shoot represents his trash persona and crude nature in the musical universe he created."
+description:
+  es: "Esto forma parte de un proyecto más amplio. Nuestro objetivo era fotografiar la portada del álbum, en la que aparece cayendo al vacío. Toda la sesión representa su naturaleza cruda en el universo musical que creó."
+  en: "These are part of a bigger project. We were aiming to shoot the cover, which is him falling into the empty abyss. The entire shoot represents his trash persona and crude nature in the musical universe he created."
 layout: sections
 sectionGap: 40 # vertical gap between bands
 # 3-up rows are a uniform 2:3 grid (ar 0.667); falling singles are natural & centered.

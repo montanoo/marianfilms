@@ -1,20 +1,24 @@
 ---
+import T from './T.astro';
+import { ui } from '../i18n';
+import type { Localized } from '../i18n';
+
 interface Props {
     moreHref?: string;
-    moreLabel?: string;
+    moreLabel?: Localized;
 }
 
-const { moreHref = '/video', moreLabel = 'MORE VIDEOS' } = Astro.props;
+const { moreHref = '/video', moreLabel = ui.moreVideos } = Astro.props;
 
 const links = [
     { href: moreHref, label: moreLabel },
-    { href: '#top', label: 'BACK TO TOP' },
-    { href: '/', label: 'BACK TO HOME' },
+    { href: '#top', label: ui.backToTop },
+    { href: '/', label: ui.backToHome },
 ];
 ---
 
 <nav class="grid grid-cols-3 mt-10">
     {links.map(({ href, label }) => (
-        <a href={href} class="font-bold text-center">{label}</a>
+        <a href={href} class="font-bold text-center"><T value={label} /></a>
     ))}
 </nav>

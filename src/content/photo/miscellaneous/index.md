@@ -1,12 +1,14 @@
 ---
-title: "Miscellaneous"
-cardTitle: "Miscellaneous"
-label: "PHOTOGRAPHY"
+title: { es: "Misceláneo", en: "Miscellaneous" }
+cardTitle: { es: "Misceláneo", en: "Miscellaneous" }
+label: { es: "FOTOGRAFÍA", en: "PHOTOGRAPHY" }
 thumbnail: ./gallery/still-11.JPG
 order: 8
 background: white
 logoColor: black
-description: "I've been toying with cameras for my whole life. These are some of my beginnings. I miss going out and taking some photos, but video has taken over my life. I think I can see some glimpses of what my style would evolve into. However, it's still changing."
+description:
+  es: "Llevo mucho tiempo jugando con cámaras. Estas son algunas de mis primeras experiencias. Extraño salir a tomar fotos, pero el vídeo se ha apoderado de mi vida. Creo que puedo ver cómo terminó evolucionando mi estilo. Sin embargo, aún está en desarrollo."
+  en: "I've been toying with cameras for my whole life. These are some of my beginnings. I miss going out and taking some photos, but video has taken over my life. I think I can see some glimpses of what my style would evolve into. However, it's still changing."
 layout: sections
 sectionGap: 63 # vertical gap between bands
 sections:

@@ -6,6 +6,8 @@ import Gallery from '../../components/Gallery.astro';
 import PageNav from '../../components/PageNav.astro';
 import Header from '../../components/Header.astro';
 import Base from '../../layouts/Base.astro';
+import T from '../../components/T.astro';
+import { ui, pick } from '../../i18n';
 
 export async function getStaticPaths() {
     const entries = await getCollection('video');
@@ -33,18 +35,19 @@ function youTubeId(url?: string): string | null {
 }
 
 const videoId = youTubeId(videoUrl);
+const titleStr = pick(pageTitle ?? title);
 ---
-<Base title={pageTitle || title}>
+<Base title={titleStr}>
     <main class="px-5 md:px-10 xl:max-w-[1680px] mx-auto py-5 xl:py-15">
-        <Header text="VIDEO" />
+        <Header text={ui.header.video} active="video" />
         <section class="px-0 md:px-10 xl:px-35">
-            <p class="mb-3 md:mb-4">{label}</p>
+            <p class="mb-3 md:mb-4"><T value={label} /></p>
             {videoId ? (
                 <div class="relative w-full aspect-video mb-8 md:mb-12 xl:mb-17">
                     <iframe
                         class="absolute inset-0 h-full w-full"
                         src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0`}
-                        title={title}
+                        title={pick(title)}
                         loading="lazy"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -53,33 +56,33 @@ const videoId = youTubeId(videoUrl);
                     ></iframe>
                 </div>
             ) : (
-                <Image src={hero ?? thumbnail} alt={title} class="w-full h-auto object-cover mb-8 md:mb-12 xl:mb-17" />
+                <Image src={hero ?? thumbnail} alt={pick(title)} class="w-full h-auto object-cover mb-8 md:mb-12 xl:mb-17" />
             )}
 
             {layout === 'credits-below' ? (
                 <>
-                    <Gallery images={gallery} title={title} variant="below" />
+                    <Gallery images={gallery} title={titleStr} variant="below" />
                     <div class="mt-12 max-w-125 mx-auto text-center">
-                        <h2 class="font-bold text-[24px]">{title}</h2>
-                        <Information title="CREDITS" items={creditItems} alignment="center" fallback="Unknown" />
+                        <h2 class="font-bold text-[24px]"><T value={title} /></h2>
+                        <Information title={ui.credits} items={creditItems} alignment="center" fallback={ui.unknown} />
                     </div>
                 </>
             ) : (
                 <div class="grid grid-cols-1 gap-y-10 xl:grid-cols-[820fr_525fr] xl:gap-x-6.25 xl:gap-y-0">
-                    <Gallery images={gallery} title={title} variant="aside">
+                    <Gallery images={gallery} title={titleStr} variant="aside">
                         {awardsInGrid && (
-                            <Information title="AWARDS" items={awardItems} alignment="left" boldTitle={false} boldTerms={false} constrain />
+                            <Information title={ui.awards} items={awardItems} alignment="left" boldTitle={false} boldTerms={false} constrain />
                         )}
                     </Gallery>
                     <div class="flex max-w-125 flex-col gap-4">
-                        <h2 class="font-bold text-[24px]">{title}</h2>
+                        <h2 class="font-bold text-[24px]"><T value={title} /></h2>
                         {description && (
-                            <p class="text-white/80 font-extralight text-[26px] leading-8">{description}</p>
+                            <p class="text-white/80 font-extralight text-[26px] leading-8"><T value={description} /></p>
                         )}
                         <div>
-                            <Information title="CREDITS" items={creditItems} alignment="left" fallback="Unknown" />
+                            <Information title={ui.credits} items={creditItems} alignment="left" fallback={ui.unknown} />
                             {!awardsInGrid &&
-                                <Information title="AWARDS" items={awardItems} alignment="left" boldTitle={false} />
+                                <Information title={ui.awards} items={awardItems} alignment="left" boldTitle={false} />
                             }
                         </div>
                     </div>

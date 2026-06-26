@@ -1,7 +1,7 @@
 ---
 title: "ISALuv - EP Photoshoot"
 cardTitle: "ISALuv"
-label: "PHOTOGRAPHY"
+label: { es: "FOTOGRAFÍA", en: "PHOTOGRAPHY" }
 thumbnail: ./gallery/still-1.jpg
 order: 5
 background: white

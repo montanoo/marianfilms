@@ -8,6 +8,21 @@ import '../styles/global.css';
 
 <html lang="es" class="scroll-smooth motion-reduce:scroll-auto">
     <head>
+        <!-- Set before first paint so CSS can hide reveal targets up front (no
+             flash) and the saved language shows immediately. If JS is off this
+             never runs: content stays visible and defaults to Spanish. -->
+        <script is:inline>
+            (function () {
+                var root = document.documentElement;
+                root.classList.add('js');
+                var lang = 'es';
+                try {
+                    if (localStorage.getItem('lang') === 'en') lang = 'en';
+                } catch (e) {}
+                root.classList.add('lang-' + lang);
+                root.lang = lang;
+            })();
+        </script>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -18,3 +33,39 @@ import '../styles/global.css';
         <slot />
     </body>
 </html>
+
+<script>
+    // Global scroll-reveal. Elements start hidden via CSS (html.js, see
+    // global.css); GSAP animates them *to* visible, so there's no flash no
+    // matter when this client-side module finishes loading.
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    gsap.registerPlugin(ScrollTrigger);
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!reduce) {
+        // Cards / blocks: fade up.
+        gsap.utils.toArray<HTMLElement>('.reveal').forEach((el) => {
+            gsap.to(el, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+                scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+            });
+        });
+        // Gallery images: slower, softer fade from near-transparent.
+        gsap.utils.toArray<HTMLElement>('.image-gallery').forEach((el) => {
+            gsap.to(el, {
+                opacity: 1,
+                duration: 1.5,
+                ease: 'power2.out',
+                scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+            });
+        });
+        // Recompute trigger positions once images have loaded and settled layout
+        // (the main reason a gallery-heavy page like /video could look "broken").
+        window.addEventListener('load', () => ScrollTrigger.refresh());
+    }
+</script>

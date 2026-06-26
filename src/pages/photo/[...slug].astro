@@ -4,6 +4,8 @@ import PhotoGallery from '../../components/PhotoGallery.astro';
 import PageNav from '../../components/PageNav.astro';
 import Header from '../../components/Header.astro';
 import Base from '../../layouts/Base.astro';
+import T from '../../components/T.astro';
+import { ui, pick } from '../../i18n';
 
 export async function getStaticPaths() {
     const entries = await getCollection('photo');
@@ -15,17 +17,18 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { title, description, rows, grid, gridCols, gridTemplate, gridGap, columns, colGap, pairGap, rowGap, singleWidth, leadGap, sections, sectionGap, layout, background, pageTitle, logoColor } = entry.data;
+const titleStr = pick(pageTitle ?? title);
 ---
-<Base title={pageTitle || title} background={background}>
+<Base title={titleStr} background={background}>
     <main class="px-5 md:px-10 xl:max-w-[1680px] mx-auto py-5 xl:py-15">
-        <Header text="PHOTO" logoColor={logoColor} />
+        <Header text={ui.header.photo} logoColor={logoColor} active="photo" />
         <section class="px-0 md:px-10 xl:px-35 mt-8 md:mt-12">
-            <PhotoGallery layout={layout} rows={rows} grid={grid} gridCols={gridCols} gridTemplate={gridTemplate} gridGap={gridGap} columns={columns} colGap={colGap} pairGap={pairGap} rowGap={rowGap} singleWidth={singleWidth} leadGap={leadGap} sections={sections} sectionGap={sectionGap} title={title} />
+            <PhotoGallery layout={layout} rows={rows} grid={grid} gridCols={gridCols} gridTemplate={gridTemplate} gridGap={gridGap} columns={columns} colGap={colGap} pairGap={pairGap} rowGap={rowGap} singleWidth={singleWidth} leadGap={leadGap} sections={sections} sectionGap={sectionGap} title={titleStr} />
 
             <div class="mt-10 md:mt-14 max-w-150">
-                <h2 class="font-bold text-[24px]">{title}</h2>
+                <h2 class="font-bold text-[24px]"><T value={title} /></h2>
                 {description && (
-                    <p class="font-extralight text-lg leading-7 mt-2 opacity-70">{description}</p>
+                    <p class="font-extralight text-lg leading-7 mt-2 opacity-70"><T value={description} /></p>
                 )}
             </div>
 

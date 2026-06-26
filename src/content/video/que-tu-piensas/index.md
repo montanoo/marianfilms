@@ -2,7 +2,7 @@
 title: "Que tu piensas"
 cardTitle: "Que Tu Piensas"
 pageTitle: "Que tu piensas"
-label: "MUSIC VIDEO"
+label: { es: "VIDEO MUSICAL", en: "MUSIC VIDEO" }
 videoUrl: "https://www.youtube.com/watch?v=7gSR2hp_fWQ&list=PL9HkiGCmXMEsXZrEM9JzR9e0Rl_H2aCED&index=8"
 thumbnail: ./thumbnail.jpg
 hero: ./hero.jpg
@@ -17,11 +17,11 @@ gallery:
   - ./gallery/still-5.jpg
   - ./gallery/still-6.jpg
 credits:
-  - { role: "Directed by", name: "Marian Cabezas" }
-  - { role: "Written by", name: "Marian Cabezas" }
-  - { role: "Director of Photography", name: "Marian Cabezas" }
-  - { role: "Sound Design", name: "Javier Chávez" }
-  - { role: "Edited by", name: "Marian Cabezas" }
-  - { role: "1st AD", name: "Marco Zelidon" }
-  - { role: "Starring", name: "Dennis Zepeda, Monica García" }
+  - { role: { es: "Dirigido por", en: "Directed by" }, name: "Marian Cabezas" }
+  - { role: { es: "Escrito por", en: "Written by" }, name: "Marian Cabezas" }
+  - { role: { es: "Director de Fotografía", en: "Director of Photography" }, name: "Marian Cabezas" }
+  - { role: { es: "Diseño de sonido", en: "Sound Design" }, name: "Javier Chávez" }
+  - { role: { es: "Editado por", en: "Edited by" }, name: "Marian Cabezas" }
+  - { role: { es: "Asistente de Dirección", en: "1st AD" }, name: "Marco Zelidon" }
+  - { role: { es: "Protagonizado por", en: "Starring" }, name: "Dennis Zepeda, Monica García" }
 ---

@@ -3,3 +3,47 @@
 @theme {
   --font-sans: Helvetica, "Helvetica Neue", Arial, sans-serif;
 }
+
+/* Scroll-reveal initial states. `html.js` is set synchronously in <head> so these
+   apply before first paint — content never flashes at full opacity before GSAP
+   runs. Skipped when JS is off (class absent) or the user prefers reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  html.js .image-gallery {
+    opacity: 0.05;
+  }
+  html.js #hero-logo,
+  html.js .hero-arrow {
+    opacity: 0;
+  }
+}
+
+/* Bilingual toggle. Every translatable string ships in both languages as
+   <span data-lang> pairs (see T.astro). Spanish is the default — shown when the
+   class is absent (JS off) or html.lang-es is set; English shows under
+   html.lang-en. The lang-* class is applied synchronously in <head> so the
+   right language is visible on first paint. */
+[data-lang="en"] {
+  display: none;
+}
+html.lang-en [data-lang="en"] {
+  display: inline;
+}
+html.lang-en [data-lang="es"] {
+  display: none;
+}
+
+.lang-btn {
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+}
+.lang-btn:hover {
+  opacity: 0.75;
+}
+html.lang-es .lang-btn[data-lang-set="es"],
+html.lang-en .lang-btn[data-lang-set="en"] {
+  opacity: 1;
+}

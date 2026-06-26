@@ -1,12 +1,14 @@
 ---
 title: "Gysin"
 cardTitle: "Gysin"
-label: "PHOTOGRAPHY"
+label: { es: "FOTOGRAFÍA", en: "PHOTOGRAPHY" }
 thumbnail: ./thumb.jpg
 order: 4
 background: black
 logoColor: white
-description: "I had the honor of doing Gysin's debut photoshoot. For each portrait, I decided to color them according to their philosophy: Hundir, Quemar, and E-nutrir."
+description:
+  es: "Tuve el honor de realizar la sesión fotográfica debut de Gysin. Para cada retrato, decidí colorearlos según su filosofía: Hundir, Quemar y E-nutrir."
+  en: "I had the honor of doing Gysin's debut photoshoot. For each portrait, I decided to color them according to their philosophy: Hundir, Quemar, and E-nutrir."
 layout: rows
 singleWidth: 80 # top group photo width (%)
 leadGap: 63 # gap below the top image

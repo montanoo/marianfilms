@@ -2,7 +2,7 @@
 title: "CUANTOS - Sander, dakzze ft. monica sin tilde"
 cardTitle: "Cuantos"
 pageTitle: "CUANTOS"
-label: "MUSIC VIDEO"
+label: { es: "VIDEO MUSICAL", en: "MUSIC VIDEO" }
 videoUrl: "https://www.youtube.com/watch?v=4GMMge5AMmw&list=PL9HkiGCmXMEsXZrEM9JzR9e0Rl_H2aCED&index=5"
 thumbnail: ./thumbnail.jpg
 hero: ./hero.jpg
@@ -17,16 +17,16 @@ gallery:
   - ./gallery/still-5.jpg
   - ./gallery/still-6.jpg
 credits:
-  - { role: "Directed by", name: "Marian Cabezas" }
-  - { role: "Written by", name: "Marian Cabezas, Alessandro Jiménez" }
-  - { role: "Director of Photography", name: "Marian Cabezas" }
-  - { role: "Edited by", name: "Marian Cabezas, Alessandro Jiménenez" }
-  - { role: "Makeup", name: "Frida Muñoz, Sofía Cárcamo" }
-  - { role: "1st AD", name: "Marco Zelidon" }
-  - { role: "Starring", name: "Sander, Marco Zelidon, Marcello Reyes" }
+  - { role: { es: "Dirigido por", en: "Directed by" }, name: "Marian Cabezas" }
+  - { role: { es: "Escrito por", en: "Written by" }, name: "Marian Cabezas, Alessandro Jiménez" }
+  - { role: { es: "Director de Fotografía", en: "Director of Photography" }, name: "Marian Cabezas" }
+  - { role: { es: "Editado por", en: "Edited by" }, name: "Marian Cabezas, Alessandro Jiménenez" }
+  - { role: { es: "Maquillaje", en: "Makeup" }, name: "Frida Muñoz, Sofía Cárcamo" }
+  - { role: { es: "Asistente de Dirección", en: "1st AD" }, name: "Marco Zelidon" }
+  - { role: { es: "Protagonizada por", en: "Starring" }, name: "Sander, Marco Zelidon, Marcello Reyes" }
 awards:
   - {
-      name: "Mónica Herrera Audiovisual Festival",
-      awardTitle: "Best Music Video of 2024",
+      name: { es: "Festival Audiovisual Mónica Herrera", en: "Mónica Herrera Audiovisual Festival" },
+      awardTitle: { es: "Mejor video musical de 2024", en: "Best Music Video of 2024" },
     }
 ---

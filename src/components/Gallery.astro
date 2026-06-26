@@ -30,21 +30,5 @@ const styles = VARIANTS[variant];
     <slot />
 </div>
 
-<script>
-    import gsap from 'gsap';
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
-    gsap.registerPlugin(ScrollTrigger);
+<!-- Reveal handled globally by Base.astro (.image-gallery). -->
 
-    gsap.utils.toArray<HTMLElement>('.image-gallery').forEach((image) => {
-        gsap.from(image, {
-            opacity: 0.05,
-            duration: 3,
-            ease: 'power2.out',
-            scrollTrigger: {
-                trigger: image,
-                start: 'top 85%',
-                once: true,
-            },
-        });
-    });
-</script>

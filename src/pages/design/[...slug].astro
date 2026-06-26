@@ -1,0 +1,114 @@
+---
+import { getCollection } from 'astro:content';
+import PhotoGallery from '../../components/PhotoGallery.astro';
+import DesignGrid from '../../components/DesignGrid.astro';
+import PageNav from '../../components/PageNav.astro';
+import Header from '../../components/Header.astro';
+import Base from '../../layouts/Base.astro';
+import T from '../../components/T.astro';
+import { ui, pick } from '../../i18n';
+
+export async function getStaticPaths() {
+    const entries = await getCollection('design');
+    return entries.map((entry) => ({
+        params: { slug: entry.id },
+        props: { entry, entries },
+    }));
+}
+
+const { entry, entries } = Astro.props;
+const {
+    title, subtitle, description, label, background, pageTitle, gallery, blocks, gap, blockGap,
+    rows, grid, gridCols, gridTemplate, gridGap, columns, colGap, pairGap, rowGap,
+    singleWidth, captionAlign, leadGap, sections, sectionGap, layout,
+} = entry.data;
+
+// Direct children = entries one level below this one.
+const prefix = `${entry.id}/`;
+const children = entries
+    .filter((e) => e.id.startsWith(prefix) && !e.id.slice(prefix.length).includes('/'))
+    .sort((a, b) => a.data.order - b.data.order);
+// A node with child folders is a category (renders a grid of its works); a node
+// without children is a flat page that renders its own content (e.g. posters).
+const isContainer = children.length > 0;
+
+const items = children.map((c) => ({
+    href: `/design/${c.id}`,
+    thumbnail: c.data.thumbnail,
+    title: c.data.title,
+    cardTitle: c.data.cardTitle,
+    label: c.data.label,
+}));
+
+// Parent lookup: a work shows its category name as the big heading, and its own
+// title as the subtitle. "MORE DESIGNS" goes back to the parent category.
+const parentId = entry.id.includes('/') ? entry.id.slice(0, entry.id.lastIndexOf('/')) : '';
+const parentEntry = parentId ? entries.find((e) => e.id === parentId) : undefined;
+const categoryTitle = parentEntry?.data.title ?? '';
+const parentHref = parentId ? `/design/${parentId}` : '/design';
+
+// Work/flat pages stack their images vertically. `blocks` (optional header above +
+// images + caption below) takes priority; otherwise each plain `gallery` image is
+// its own block. `rows` stacks several images under one block; `images` puts them
+// side by side; `src` is a single image. With no headings/captions the stack is
+// gap-free; otherwise blocks get spacing. Falls back to the authored layout.
+const blockRows = (b) =>
+    b.rows ?? (b.images ? [b.images] : b.src ? [[b.src]] : []);
+const stackBlocks = blocks.length
+    ? blocks.map((b) => ({
+          rows: blockRows(b),
+          heading: b.heading,
+          caption: b.caption,
+          gap: b.gap ?? gap,
+          rowGap: b.rowGap,
+      }))
+    : gallery.map((img) => ({ rows: [[img]] }));
+const hasStack = stackBlocks.some((b) => b.rows.length > 0);
+// `gap` controls the horizontal space between side-by-side images (x only). The
+// vertical gap between blocks is `blockGap` if set, else flush, opening up to 56
+// only when captions/headings exist.
+const stackGap = blockGap ?? (stackBlocks.some((b) => b.heading || b.caption) ? 56 : 0);
+const titleStr = pick(pageTitle ?? title);
+---
+<Base title={titleStr} background={background}>
+    <main class="px-5 md:px-10 xl:max-w-[1680px] mx-auto py-5 xl:py-15">
+        <Header text={ui.header.design} active="design" />
+
+        {isContainer ? (
+            <>
+                <div class="mt-8 md:mt-12 mb-8 md:mb-12">
+                    <h1 class="text-[40px] md:text-5xl font-bold leading-[1.05]"><T value={title} /></h1>
+                    {label && <p class="text-xl md:text-2xl mt-2 opacity-70"><T value={label} /></p>}
+                </div>
+                <DesignGrid items={items} singleRow />
+                <PageNav moreHref="/design" moreLabel="MORE DESIGNS" />
+            </>
+        ) : (
+            <>
+                <div class="mt-8 md:mt-12 mb-8 md:mb-12">
+                    <h1 class="text-[40px] md:text-5xl font-bold leading-[1.05]"><T value={categoryTitle || title} /></h1>
+                    {categoryTitle ? (
+                        <p class="text-xl md:text-[26px] mt-2"><T value={title} /></p>
+                    ) : subtitle ? (
+                        <p class="text-xl md:text-[26px] mt-2"><T value={subtitle} /></p>
+                    ) : null}
+                </div>
+                <section>
+                    {hasStack ? (
+                        <PhotoGallery layout="blocks" blocks={stackBlocks} blockGap={stackGap} singleWidth={singleWidth} captionAlign={captionAlign} title={titleStr} />
+                    ) : (
+                        <PhotoGallery layout={layout} rows={rows} grid={grid} gridCols={gridCols} gridTemplate={gridTemplate} gridGap={gridGap} columns={columns} colGap={colGap} pairGap={pairGap} rowGap={rowGap} singleWidth={singleWidth} leadGap={leadGap} sections={sections} sectionGap={sectionGap} title={titleStr} />
+                    )}
+
+                    {description && (
+                        <div class="mx-auto w-full mt-10 md:mt-14" style={`max-width:${singleWidth}%`}>
+                            <p class="text-lg md:text-xl leading-relaxed"><T value={description} /></p>
+                        </div>
+                    )}
+
+                    <PageNav moreHref={parentHref} moreLabel="MORE DESIGNS" />
+                </section>
+            </>
+        )}
+    </main>
+</Base>

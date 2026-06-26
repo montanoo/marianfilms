@@ -1,0 +1,36 @@
+---
+// ES / EN language switcher. Uses the es.svg / en.svg glyph marks (fill:
+// currentColor, so they take the surrounding text color on light or dark
+// backgrounds). Active state is driven purely by the <html> lang-* class via
+// CSS (see global.css), so it's correct on first paint. The click handler flips
+// that class + persists the choice; the inline head script in Base.astro
+// re-applies it on every page load (full reloads, no View Transitions).
+import EsMark from '../assets/es.svg';
+import EnMark from '../assets/en.svg';
+---
+
+<div class="flex items-center gap-2 select-none">
+  <button type="button" data-lang-set="es" class="lang-btn cursor-pointer" aria-label="Español">
+    <EsMark class="h-4 w-auto" />
+  </button>
+  <span aria-hidden="true" class="opacity-30 text-sm leading-none">/</span>
+  <button type="button" data-lang-set="en" class="lang-btn cursor-pointer" aria-label="English">
+    <EnMark class="h-4 w-auto" />
+  </button>
+</div>
+
+<script>
+  // Delegated so a single bundled handler covers the toggle wherever it appears.
+  document.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLElement>("[data-lang-set]");
+    if (!btn) return;
+    const lang = btn.dataset.langSet === "en" ? "en" : "es";
+    const root = document.documentElement;
+    root.classList.remove("lang-es", "lang-en");
+    root.classList.add("lang-" + lang);
+    root.lang = lang;
+    try {
+      localStorage.setItem("lang", lang);
+    } catch {}
+  });
+</script>

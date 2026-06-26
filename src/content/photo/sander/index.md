@@ -1,12 +1,14 @@
 ---
 title: "Sander"
 cardTitle: "Sander"
-label: "PHOTOGRAPHY"
+label: { es: "FOTOGRAFÍA", en: "PHOTOGRAPHY" }
 thumbnail: ./gallery/still-5.jpg
 order: 7
 background: black
 logoColor: white
-description: "These weren't planned. Taken during the shoot of a visualizer for one of his songs. However, I loved how the colors turned out and the essence it captured."
+description:
+  es: "Estas fotos no estaban planeadas. Fueron tomadas durante la grabación de un video para una de sus canciones. Sin embargo, me encantó cómo quedaron los colores y la esencia que capturaron."
+  en: "These weren't planned. Taken during the shoot of a visualizer for one of his songs. However, I loved how the colors turned out and the essence it captured."
 layout: sections
 sectionGap: 48 # vertical gap between bands
 sections:

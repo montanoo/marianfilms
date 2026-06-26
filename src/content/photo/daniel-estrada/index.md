@@ -1,12 +1,14 @@
 ---
 title: "Daniel Estrada"
 cardTitle: "Daniel Estrada"
-label: "PHOTOGRAPHY"
+label: { es: "FOTOGRAFÍA", en: "PHOTOGRAPHY" }
 thumbnail: ./gallery/slide-6.jpg
 order: 3
 background: white
 logoColor: black
-description: "The inspiration was an unreleased song by Daniel. The song reminded me of a siren. Haunting and strange, but ultimately, something you want to get lost in. Styling by Gabriela Reverie, suits provided by Didi Hiver."
+description:
+  es: "La inspiración fue una canción inédita de Daniel. Me recordó a una sirena. Inquietante y extraña, pero algo en lo que uno quiere perderse. Estilismo de Gabriela Reverie, trajes de Didi Hiver."
+  en: "The inspiration was an unreleased song by Daniel. The song reminded me of a siren. Haunting and strange, but ultimately, something you want to get lost in. Styling by Gabriela Reverie, suits provided by Didi Hiver."
 layout: columns
 colGap: 32
 pairGap: 19

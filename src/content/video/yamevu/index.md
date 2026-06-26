@@ -1,14 +1,16 @@
 ---
 title: "Yamevú"
 cardTitle: "Yamevú"
-label: "SHORT FILM"
+label: { es: "CORTOMETRAJE", en: "SHORT FILM" }
 videoUrl: "https://www.youtube.com/watch?v=FDswAzZl4mI&list=PL9HkiGCmXMEsXZrEM9JzR9e0Rl_H2aCED&index=2"
 thumbnail: ./thumbnail.jpg
 hero: ./hero.jpg
 span: 2
 order: 6
 layout: "credits-aside"
-description: "On a double date, a young woman discovers that reconciling with herself isn't as easy as it seems."
+description:
+  es: "En una cita doble, una joven descubre que reconciliarse consigo misma no es tan fácil como parece."
+  en: "On a double date, a young woman discovers that reconciling with herself isn't as easy as it seems."
 gallery:
   - ./gallery/still-1.jpg
   - ./gallery/still-2.jpg
@@ -20,22 +22,22 @@ gallery:
   - ./gallery/still-8.png
   - ./gallery/still-9.png
 credits:
-  - { role: "Original Idea by", name: "Marian Cabezas, Fernando Trinidad" }
-  - { role: "Written and directed by", name: "Marian Cabezas" }
+  - { role: { es: "Idea original de", en: "Original Idea by" }, name: "Marian Cabezas, Fernando Trinidad" }
+  - { role: { es: "Escrito y dirigido por", en: "Written and directed by" }, name: "Marian Cabezas" }
   - {
-      role: "Starring",
+      role: { es: "Protagonizada por", en: "Starring" },
       name: "Adela Jenny, Marco Zelidon, Norman R. Valle, Nohemyl Fuentes, Fátima LGB",
     }
-  - { role: "Produced by", name: "Ale García" }
-  - { role: "Makeup", name: "Marian Cabezas, Isabel León" }
-  - { role: "1st AD", name: "Karla Macal" }
-  - { role: "Continuity", name: "Michelle Quintanilla" }
-  - { role: "Sound Recording", name: "Angel Cortez" }
-  - { role: "Sound Assistant", name: "Fernando Trinidad" }
+  - { role: { es: "Producido por", en: "Produced by" }, name: "Ale García" }
+  - { role: { es: "Maquillaje", en: "Makeup" }, name: "Marian Cabezas, Isabel León" }
+  - { role: { es: "Asistente de Dirección", en: "1st AD" }, name: "Karla Macal" }
+  - { role: { es: "Continuidad", en: "Continuity" }, name: "Michelle Quintanilla" }
+  - { role: { es: "Grabación sonora", en: "Sound Recording" }, name: "Angel Cortez" }
+  - { role: { es: "Asistente de sonido", en: "Sound Assistant" }, name: "Fernando Trinidad" }
   - {
-      role: "Production Assistants",
+      role: { es: "Asistentes de producción", en: "Production Assistants" },
       name: "Fernando Montano, Alessandro Jimenez, Isabella Zelidon",
     }
-  - { role: "Editing by", name: "Marian Cabezas" }
-  - { role: "Original Music by", name: "Vajra141" }
+  - { role: { es: "Edición", en: "Editing by" }, name: "Marian Cabezas" }
+  - { role: { es: "Música original de", en: "Original Music by" }, name: "Vajra141" }
 ---

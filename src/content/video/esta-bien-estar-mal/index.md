@@ -2,7 +2,7 @@
 title: "Dakzze - Esta Bien Estar Mal ft. Gabriela Triste"
 cardTitle: "Esta Bien Estar Mal"
 pageTitle: "Esta bien estar mal"
-label: "MUSIC VIDEO"
+label: { es: "VIDEO MUSICAL", en: "MUSIC VIDEO" }
 videoUrl: "https://www.youtube.com/watch?v=RNDRYeGdfGc&list=PL9HkiGCmXMEsXZrEM9JzR9e0Rl_H2aCED&index=9"
 thumbnail: ./thumbnail.jpg
 hero: ./hero.jpg
@@ -17,10 +17,10 @@ gallery:
   - ./gallery/still-5.jpg
   - ./gallery/still-6.jpg
 credits:
-  - { role: "Script and directing", name: "Marian Cabezas y Grisel Duarte" }
-  - { role: "Camera operators", name: "Marian Cabezas y Grisel Duarte" }
-  - { role: "Mixed media", name: "Marian Cabezas y Grisel Duarte" }
-  - { role: "Editing", name: "Marian Cabezas" }
-  - { role: "Performed by", name: "Dakzze y Gabriela Triste" }
-  - { role: "Song production", name: "La nave" }
+  - { role: { es: "Guion y dirección", en: "Script and directing" }, name: "Marian Cabezas y Grisel Duarte" }
+  - { role: { es: "Operadores de cámara", en: "Camera operators" }, name: "Marian Cabezas y Grisel Duarte" }
+  - { role: { es: "Mixed media", en: "Mixed media" }, name: "Marian Cabezas y Grisel Duarte" }
+  - { role: { es: "Edición", en: "Editing" }, name: "Marian Cabezas" }
+  - { role: { es: "Interpretación por", en: "Performed by" }, name: "Dakzze y Gabriela Triste" }
+  - { role: { es: "Musicalización", en: "Song production" }, name: "La nave" }
 ---

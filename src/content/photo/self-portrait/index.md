@@ -1,12 +1,14 @@
 ---
-title: "Self-portraits"
-cardTitle: "Self-portraits"
-label: "PHOTOGRAPHY"
+title: { es: "Autorretratos", en: "Self-portraits" }
+cardTitle: { es: "Autorretratos", en: "Self-portraits" }
+label: { es: "FOTOGRAFÍA", en: "PHOTOGRAPHY" }
 thumbnail: ./gallery/still-6.PNG
 order: 6
 background: white
 logoColor: black
-description: "Before I took pictures of anyone, my only model was myself. It helped me understand lighting, makeup, outfits, and intention. I love taking self-portraits, great exercise when no one else is down to model."
+description:
+  es: "Antes de fotografiar a otra gente, mi única modelo era yo misma. Me ayudó a comprender la iluminación, el maquillaje, la ropa y la intención. Me encanta hacerme autorretratos; es un ejercicio estupendo cuando no hay nadie más dispuesto a posar."
+  en: "Before I took pictures of anyone, my only model was myself. It helped me understand lighting, makeup, outfits, and intention. I love taking self-portraits, great exercise when no one else is down to model."
 layout: sections
 sectionGap: 32 # vertical gap between bands
 # 3-up rows are cropped to a uniform box (ar 0.63); centered singles are natural.

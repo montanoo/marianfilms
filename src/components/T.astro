@@ -1,0 +1,45 @@
+---
+// Bilingual text node. Renders both languages as <span data-lang> pairs; CSS
+// (global.css) shows only the one matching the <html> lang-* class, so the
+// client-side toggle swaps languages with no reflow and no JS on first paint.
+// When both languages are identical (proper nouns, untranslated content) a
+// single plain span is emitted instead.
+import type { Localized } from "../i18n";
+import { pick } from "../i18n";
+
+interface Props {
+  value: Localized;
+  class?: string;
+  /** Treat the text as raw HTML (captions that contain markup, e.g. <strong>). */
+  html?: boolean;
+}
+
+const { value, class: className, html = false } = Astro.props;
+const es = pick(value, "es");
+const en = pick(value, "en");
+const same = es === en;
+---
+
+{
+  same ? (
+    html ? (
+      <span class={className} set:html={es} />
+    ) : (
+      <span class={className}>{es}</span>
+    )
+  ) : html ? (
+    <Fragment>
+      <span data-lang="es" class={className} set:html={es} />
+      <span data-lang="en" class={className} set:html={en} />
+    </Fragment>
+  ) : (
+    <Fragment>
+      <span data-lang="es" class={className}>
+        {es}
+      </span>
+      <span data-lang="en" class={className}>
+        {en}
+      </span>
+    </Fragment>
+  )
+}

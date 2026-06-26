@@ -1,5 +1,9 @@
 ---
 import LogoMark from '../assets/logo.svg';
+import LangToggle from './LangToggle.astro';
+import NavDrawer from './NavDrawer.astro';
+import T from './T.astro';
+import { ui } from '../i18n';
 
 interface Props {
     /** Slug of the active section, e.g. "video". */
@@ -8,14 +12,14 @@ interface Props {
 
 const { active = 'video' } = Astro.props;
 
-const left = [
-    { label: 'VIDEO', href: '/video', key: 'video' },
-    { label: 'PHOTO', href: '/photo', key: 'photo' },
+const links = [
+    { label: ui.nav.video, href: '/video', key: 'video' },
+    { label: ui.nav.photo, href: '/photo', key: 'photo' },
+    { label: ui.nav.design, href: '/design', key: 'design' },
+    { label: ui.nav.about, href: '/about', key: 'about' },
 ];
-const right = [
-    { label: 'DESIGN', href: '/design', key: 'design' },
-    { label: 'ABOUT ME', href: '/about', key: 'about' },
-];
+const left = links.slice(0, 2);
+const right = links.slice(2);
 
 const linkClass = (key: string) =>
     [
@@ -25,9 +29,10 @@ const linkClass = (key: string) =>
 ---
 
 <nav class="sticky top-0 z-50 bg-black">
-    <div class="px-5 md:px-10 xl:max-w-[1680px] mx-auto py-6 xl:py-8 grid grid-cols-[1fr_auto_1fr] items-center">
+    <!-- Desktop (lg+): links · logo · links + toggle -->
+    <div class="hidden lg:grid px-5 md:px-10 xl:max-w-[1680px] mx-auto py-6 xl:py-8 grid-cols-[1fr_auto_1fr] items-center">
         <div class="flex items-center gap-8 md:gap-14 xl:gap-20">
-            {left.map((l) => <a href={l.href} class={linkClass(l.key)}>{l.label}</a>)}
+            {left.map((l) => <a href={l.href} class={linkClass(l.key)}><T value={l.label} /></a>)}
         </div>
 
         <a href="/" aria-label="Marian Cabezas — home" class="justify-self-center">
@@ -35,7 +40,18 @@ const linkClass = (key: string) =>
         </a>
 
         <div class="flex items-center justify-end gap-8 md:gap-14 xl:gap-20">
-            {right.map((l) => <a href={l.href} class={linkClass(l.key)}>{l.label}</a>)}
+            {right.map((l) => <a href={l.href} class={linkClass(l.key)}><T value={l.label} /></a>)}
+            <LangToggle />
+        </div>
+    </div>
+
+    <!-- Tablet / mobile (< lg): logo left, hamburger right -->
+    <div class="lg:hidden px-5 md:px-10">
+        <div class="flex items-center justify-between py-5">
+            <a href="/" aria-label="Marian Cabezas — home">
+                <LogoMark class="h-7 w-auto" />
+            </a>
+            <NavDrawer active={active} />
         </div>
     </div>
 </nav>

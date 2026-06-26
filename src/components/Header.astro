@@ -1,24 +1,48 @@
 ---
 import LogoMark from '../assets/logo.svg';
 import ArrowMark from '../assets/arrow.svg';
-interface Props { text?: string; logoColor?: string }
+import LangToggle from './LangToggle.astro';
+import NavDrawer from './NavDrawer.astro';
+import T from './T.astro';
+import type { Localized } from '../i18n';
 
-const { text, logoColor } = Astro.props;
+interface Props {
+    text?: Localized;
+    logoColor?: string;
+    active?: 'video' | 'photo' | 'design' | 'about';
+}
+
+const { text, logoColor, active } = Astro.props;
+const colorStyle = logoColor ? `color: ${logoColor}` : undefined;
 ---
 
-<header class="relative">
-    <button
-        type="button"
-        id="back-btn"
-        aria-label="Back"
-        disabled
-        class="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-30 disabled:cursor-default"
-    >
-        <ArrowMark class="w-10 h-8 xl:w-22 xl:h-20 rotate-90" />
-    </button>
-    <div class="flex flex-col justify-center items-center gap-2">
-        <LogoMark class="w-10 h-5 xl:w-25 xl:h-15" style={logoColor ? `color: ${logoColor}` : undefined} />
-        {text && <span class="text-xs xl:text-base font-extralight xl:tracking-[1.1em] xl:mr-[-1.1em]">{text}</span>}
+<header class="relative" style={colorStyle}>
+    <!-- Desktop (lg+): back arrow · centered logo + label · toggle -->
+    <div class="relative hidden lg:block">
+        <button
+            type="button"
+            id="back-btn"
+            aria-label="Back"
+            disabled
+            class="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-30 disabled:cursor-default"
+        >
+            <ArrowMark class="w-10 h-8 xl:w-22 xl:h-20 rotate-90" />
+        </button>
+        <div class="absolute right-0 top-1/2 -translate-y-1/2">
+            <LangToggle />
+        </div>
+        <div class="flex flex-col justify-center items-center gap-2">
+            <LogoMark class="w-10 h-5 xl:w-25 xl:h-15" />
+            {text && <span class="text-xs xl:text-base font-extralight xl:tracking-[1.1em] xl:mr-[-1.1em]"><T value={text} /></span>}
+        </div>
+    </div>
+
+    <!-- Tablet / mobile (< lg): logo left, hamburger right -->
+    <div class="flex items-center justify-between lg:hidden">
+        <a href="/" aria-label="Marian Cabezas — home">
+            <LogoMark class="h-7 w-auto" />
+        </a>
+        <NavDrawer active={active} />
     </div>
 </header>
 

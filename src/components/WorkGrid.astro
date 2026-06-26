@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
+import T from './T.astro';
+import { pick } from '../i18n';
 
 const videos = (await getCollection('video')).sort(
     (a, b) => a.data.order - b.data.order,
@@ -12,38 +14,21 @@ const videos = (await getCollection('video')).sort(
         {videos.map((video) => (
             <a
                 href={`/video/${video.id}`}
-                class="work-card group relative block aspect-video overflow-hidden"
+                class="reveal group relative block aspect-video overflow-hidden"
             >
                 <Image
                     src={video.data.thumbnail}
-                    alt={video.data.title}
+                    alt={pick(video.data.title)}
                     class="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03] group-hover:brightness-[0.35]"
                 />
                 <div class="absolute inset-0 flex flex-col items-center justify-center gap-1.5 p-4 text-center opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
-                    <h3 class="font-light uppercase tracking-[0.3em] pl-[0.3em] text-xl md:text-2xl leading-tight">{video.data.cardTitle ?? video.data.title}</h3>
-                    <p class="text-[10px] md:text-[11px] uppercase tracking-[0.3em] pl-[0.3em] text-white/70">{video.data.label}</p>
+                    <h3 class="font-light uppercase tracking-[0.3em] pl-[0.3em] text-xl md:text-2xl leading-tight"><T value={video.data.cardTitle ?? video.data.title} /></h3>
+                    <p class="text-[10px] md:text-[11px] uppercase tracking-[0.3em] pl-[0.3em] text-white/70"><T value={video.data.label} /></p>
                 </div>
             </a>
         ))}
     </div>
 </section>
 
-<script>
-    import gsap from 'gsap';
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
-    gsap.registerPlugin(ScrollTrigger);
+<!-- Reveal handled globally by Base.astro (.reveal). -->
 
-    gsap.utils.toArray<HTMLElement>('.work-card').forEach((card) => {
-        gsap.from(card, {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-            ease: 'power2.out',
-            scrollTrigger: {
-                trigger: card,
-                start: 'top 92%',
-                once: true,
-            },
-        });
-    });
-</script>

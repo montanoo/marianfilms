@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import DesignGrid from '../../components/DesignGrid.astro';
+
+// Top-level categories only (ids with no slash, e.g. "advertising").
+const categories = (await getCollection('design'))
+    .filter((entry) => !entry.id.includes('/'))
+    .sort((a, b) => a.data.order - b.data.order);
+
+const items = categories.map((entry) => ({
+    href: `/design/${entry.id}`,
+    thumbnail: entry.data.thumbnail,
+    title: entry.data.title,
+    cardTitle: entry.data.cardTitle,
+    label: entry.data.label,
+}));
+---
+
+<Base title="Design">
+    <Nav active="design" />
+    <main class="px-5 md:px-10 xl:max-w-[1680px] mx-auto py-10 xl:py-16 pb-20 xl:pb-32">
+        <DesignGrid items={items} />
+    </main>
+</Base>

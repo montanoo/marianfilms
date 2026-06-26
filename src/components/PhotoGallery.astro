@@ -1,10 +1,22 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import T from './T.astro';
+import type { Localized } from '../i18n';
 
 interface RowItem {
     src: ImageMetadata;
     span?: number;
+    heading?: Localized;
+    caption?: Localized;
+}
+
+interface BlockItem {
+    rows: ImageMetadata[][]; // each row = images side by side; rows stack vertically
+    heading?: Localized; // rendered above the images, at content-left
+    caption?: Localized; // rendered below the images
+    gap?: number; // horizontal gap between images within a row
+    rowGap?: number; // vertical gap between stacked rows
 }
 
 interface GridItem {
@@ -59,8 +71,10 @@ interface Section {
 
 interface Props {
     title: string;
-    layout?: 'rows' | 'grid' | 'columns' | 'sections';
+    layout?: 'rows' | 'grid' | 'columns' | 'sections' | 'blocks';
     rows?: RowItem[][];
+    blocks?: BlockItem[];
+    blockGap?: number;
     grid?: GridItem[];
     gridCols?: number;
     gridTemplate?: string;
@@ -70,6 +84,7 @@ interface Props {
     pairGap?: number;
     rowGap?: number;
     singleWidth?: number;
+    captionAlign?: 'center' | 'left';
     leadGap?: number;
     sections?: Section[];
     sectionGap?: number;
@@ -79,6 +94,8 @@ const {
     title,
     layout = 'rows',
     rows = [],
+    blocks = [],
+    blockGap = 0,
     grid = [],
     gridCols = 6,
     gridTemplate,
@@ -88,6 +105,7 @@ const {
     pairGap = 14,
     rowGap = 67,
     singleWidth = 72,
+    captionAlign = 'center',
     leadGap,
     sections = [],
     sectionGap = 28,
@@ -128,7 +146,40 @@ function gridRow(item: GridItem): string {
 let n = 0;
 ---
 
-{layout === 'sections' ? (
+{layout === 'blocks' ? (
+    <div class="flex flex-col" style={`gap:${blockGap}px`}>
+        {blocks.map((block) => (
+            <div>
+                {block.heading && (
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 md:mb-6"><T value={block.heading} /></h3>
+                )}
+                <figure class="m-0 mx-auto w-full flex flex-col" style={`max-width:${singleWidth}%; gap:${block.rowGap ?? 14}px`}>
+                    {block.rows.map((row) => (
+                        <div class="flex" style={`gap:${block.gap ?? 0}px`}>
+                            {row.map((img) => {
+                                n++;
+                                // A lone image must fill its row, so it gets flex-grow:1.
+                                // (A grow factor below 1 would only fill that fraction of
+                                // the row — portrait images, aspect < 1, would look undersized.)
+                                // Multi-image rows keep aspect weights to size proportionally.
+                                return (
+                                    <div class="min-w-0" style={`flex-grow:${row.length === 1 ? 1 : aspect(img)}; flex-basis:0`}>
+                                        <Image src={img} alt={`${title} — ${n}`} class="image-gallery block w-full h-auto" />
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    ))}
+                    {block.caption && (
+                        <figcaption class={captionAlign === 'left' ? 'w-full' : 'mx-auto max-w-[80%]'}>
+                            <p class={`leading-relaxed ${captionAlign === 'left' ? 'text-base md:text-lg opacity-90' : 'text-sm md:text-base opacity-80'}`}><T value={block.caption} html /></p>
+                        </figcaption>
+                    )}
+                </figure>
+            </div>
+        ))}
+    </div>
+) : layout === 'sections' ? (
     <div class="flex flex-col" style={`gap:${sectionGap}px`}>
         {sections.map((section) => {
             if (section.columns) {
@@ -278,9 +329,16 @@ let n = 0;
 
             if (row.length === 1) {
                 n++;
+                const it = row[0];
                 return (
                     <div class="mx-auto w-full" style={`max-width:${singleWidth}%; ${mbStyle}`}>
-                        <Image src={row[0].src} alt={`${title} — ${n}`} class="image-gallery block w-full h-auto" />
+                        <Image src={it.src} alt={`${title} — ${n}`} class="image-gallery block w-full h-auto" />
+                        {(it.heading || it.caption) && (
+                            <figcaption class="mt-3 md:mt-4">
+                                {it.heading && <h3 class="text-lg md:text-xl font-bold"><T value={it.heading} /></h3>}
+                                {it.caption && <p class="text-sm md:text-base opacity-80 leading-relaxed mt-1"><T value={it.caption} html /></p>}
+                            </figcaption>
+                        )}
                     </div>
                 );
             }
@@ -301,17 +359,5 @@ let n = 0;
     </div>
 )}
 
-<script>
-    import gsap from 'gsap';
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
-    gsap.registerPlugin(ScrollTrigger);
+<!-- Reveal handled globally by Base.astro (.image-gallery). -->
 
-    gsap.utils.toArray<HTMLElement>('.image-gallery').forEach((image) => {
-        gsap.from(image, {
-            opacity: 0.05,
-            duration: 2,
-            ease: 'power2.out',
-            scrollTrigger: { trigger: image, start: 'top 90%', once: true },
-        });
-    });
-</script>
