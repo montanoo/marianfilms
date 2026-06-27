@@ -4,7 +4,7 @@ cardTitle: { es: "Infografías", en: "Infography" }
 label: { es: "Datos y Visuales", en: "Data & Visuals" }
 thumbnail: ./thumbnail.jpg
 order: 7
-singleWidth: 72
+singleWidth: 100
 captionAlign: left
 blockGap: 80
 blocks:

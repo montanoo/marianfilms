@@ -81,7 +81,7 @@ const titleStr = pick(pageTitle ?? title);
                     {label && <p class="text-xl md:text-2xl mt-2 opacity-70"><T value={label} /></p>}
                 </div>
                 <DesignGrid items={items} singleRow />
-                <PageNav moreHref="/design" moreLabel="MORE DESIGNS" />
+                <PageNav moreHref="/design" moreLabel={ui.moreDesigns} />
             </>
         ) : (
             <>
@@ -106,7 +106,7 @@ const titleStr = pick(pageTitle ?? title);
                         </div>
                     )}
 
-                    <PageNav moreHref={parentHref} moreLabel="MORE DESIGNS" />
+                    <PageNav moreHref={parentHref} moreLabel={ui.moreDesigns} />
                 </section>
             </>
         )}
