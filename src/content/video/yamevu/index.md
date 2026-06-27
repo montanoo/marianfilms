@@ -40,4 +40,13 @@ credits:
     }
   - { role: { es: "Edición", en: "Editing by" }, name: "Marian Cabezas" }
   - { role: { es: "Música original de", en: "Original Music by" }, name: "Vajra141" }
+awards:
+  - {
+      name: { es: "6º Festival de Cortos ESCINE", en: "6th ESCINE Short Film Festival" },
+      awardTitle: { es: "Mejor Sonido, Premio Thirza Ruballo 2025", en: "Best Sound, Thirza Ruballo Award 2025" },
+    }
+  - {
+      name: { es: "6º Festival de Cortos ESCINE", en: "6th ESCINE Short Film Festival" },
+      awardTitle: { es: "Mejor Maquillaje, Premio Thirza Ruballo 2025", en: "Best Makeup, Thirza Ruballo Award 2025" },
+    }
 ---

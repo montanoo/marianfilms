@@ -23,4 +23,9 @@ credits:
   - { role: { es: "Guion y dirección", en: "Written and directed by" }, name: "Marian Cabezas" }
   - { role: { es: "Protagonistas", en: "Starring" }, name: "Grisel Duarte, Sergio Rodríguez" }
   - { role: { es: "Edición", en: "Edited by" }, name: "Marian Cabezas" }
+awards:
+  - {
+      name: { es: "4º Festival de Cortos ESCINE", en: "4th ESCINE Short Film Festival" },
+      awardTitle: { es: "Mejor Sonido, Premio Thirza Ruballo 2023", en: "Best Sound, Thirza Ruballo Award 2023" },
+    }
 ---

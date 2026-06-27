@@ -187,10 +187,7 @@ const rightCol = masonryImages.filter((_, i) => i % 2 !== leftParity);
                 {block.heading && (
                     <h3 class="text-xl md:text-2xl font-bold mb-4 md:mb-6"><T value={block.heading} /></h3>
                 )}
-                <figure
-  class="m-0 mx-auto flex w-full flex-col max-w-[var(--mobile-width)] md:max-w-[60%]"
-  style={`--mobile-width:${singleWidth}%; gap:${block.rowGap ?? 14}px;`}
->
+                <figure class="m-0 mx-auto flex w-full flex-col max-w-[var(--mobile-width)] md:max-w-[60%]" style={`--mobile-width:${singleWidth}%; gap:${block.rowGap ?? 14}px;`}>
                     {block.rows.map((row) => (
                         <div class="flex" style={`gap:${block.gap ?? 0}px`}>
                             {row.map((img) => {

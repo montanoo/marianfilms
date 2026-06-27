@@ -1,9 +1,41 @@
 ---
-interface Props { title: string; background?: 'black' | 'white'; }
-const { title, background = 'black' } = Astro.props;
+import '../styles/global.css';
+
+interface Props {
+    title: string;
+    background?: 'black' | 'white';
+    description?: string;
+    image?: string;
+    noindex?: boolean;
+}
+const {
+    title,
+    background = 'black',
+    description = 'Marianfilms es el portafolio de Marian Cabezas, cineasta, editora y diseñadora salvadoreña: cortometrajes, videoclips, fotografía y diseño gráfico.',
+    image = '/og.jpg',
+    noindex = false,
+} = Astro.props;
 const bodyClass = background === 'white' ? 'bg-white text-black' : 'bg-black text-white';
 
-import '../styles/global.css';
+const site = Astro.site ?? new URL('https://marianfilms.com');
+const canonical = new URL(Astro.url.pathname, site);
+const ogImage = new URL(image, site);
+const fullTitle = /marianfilms/i.test(title) ? title : `${title} | Marianfilms`;
+const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+        { '@type': 'WebSite', '@id': `${site.origin}/#website`, url: `${site.origin}/`, name: 'Marianfilms', inLanguage: 'es' },
+        {
+            '@type': 'Person',
+            '@id': `${site.origin}/#marian`,
+            name: 'Marian Cabezas',
+            alternateName: 'Marianfilms',
+            url: `${site.origin}/`,
+            jobTitle: 'Cineasta, editora y diseñadora',
+            sameAs: ['https://instagram.com/marianfilms', 'https://youtube.com/@marianfilms'],
+        },
+    ],
+};
 ---
 
 <html lang="es" class="scroll-smooth motion-reduce:scroll-auto">
@@ -27,7 +59,28 @@ import '../styles/global.css';
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-        <title>{title} | Marianfilms</title>
+        <title>{fullTitle}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical} />
+        <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Marianfilms" />
+        <meta property="og:title" content={fullTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="es_ES" />
+        <meta property="og:locale:alternate" content="en_US" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={fullTitle} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
+
+        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     </head>
     <body class={`${bodyClass} p-0 m-0`} id="top">
         <slot />

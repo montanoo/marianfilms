@@ -7,6 +7,7 @@ subtitle:
 label: { es: "Campañas", en: "Campaigns" }
 thumbnail: ./gallery/still-4.jpg
 order: 6
+singleWidth: 100
 background: white
 blocks:
   - src: ./gallery/still-1.jpg

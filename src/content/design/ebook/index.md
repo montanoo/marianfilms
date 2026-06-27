@@ -1,6 +1,6 @@
 ---
 title: E-books
-cardTitle: Ebook
+cardTitle: E-book
 label: { es: "Editorial", en: "Editorial" }
 thumbnail: ./thumbnail.jpg
 order: 5

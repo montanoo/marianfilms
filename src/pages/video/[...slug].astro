@@ -70,8 +70,12 @@ const titleStr = pick(pageTitle ?? title);
             ) : (
                 <div class="grid grid-cols-1 gap-y-10 xl:grid-cols-[820fr_525fr] xl:gap-x-6.25 xl:gap-y-0">
                     <Gallery images={gallery} title={titleStr} variant="aside">
-                        {awardsInGrid && (
-                            <Information title={ui.awards} items={awardItems} alignment="left" boldTitle={false} boldTerms={false} constrain />
+                        {/* Award sits inside the image grid on desktop; on tablet/mobile
+                           it drops under the credits instead (the xl:hidden copy below). */}
+                        {awardsInGrid && awardItems.length > 0 && (
+                            <div class="hidden xl:block">
+                                <Information title={ui.awards} items={awardItems} alignment="left" boldTitle={false} boldTerms={false} constrain />
+                            </div>
                         )}
                     </Gallery>
                     <div class="flex max-w-125 flex-col gap-4">
@@ -81,9 +85,13 @@ const titleStr = pick(pageTitle ?? title);
                         )}
                         <div>
                             <Information title={ui.credits} items={creditItems} alignment="left" fallback={ui.unknown} />
-                            {!awardsInGrid &&
-                                <Information title={ui.awards} items={awardItems} alignment="left" boldTitle={false} />
-                            }
+                            {/* Under the credits always — except when it's shown in the grid,
+                               where this copy is the tablet/mobile fallback (xl:hidden). */}
+                            {awardItems.length > 0 && (
+                                <div class:list={[awardsInGrid && 'xl:hidden']}>
+                                    <Information title={ui.awards} items={awardItems} alignment="left" boldTitle={false} />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
